@@ -3,23 +3,23 @@ import 'package:flutter/material.dart';
 class BottomNavigationBarWidget extends StatelessWidget {
   final int currentIndex;
 
-  const BottomNavigationBarWidget({required this.currentIndex});
+   BottomNavigationBarWidget({required this.currentIndex});
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: currentIndex,
-      items: const <BottomNavigationBarItem>[
+      items:  <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home),
+          icon: Image.asset('assets/images/bag_icon.png', height: 80,),
           label: 'Sacola',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.search),
+          icon: Image.asset('assets/images/pokedex_icon.png', height: 80,),
           label: 'Pokedex',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.person),
+          icon: Image.asset('assets/images/recomendacao_icon.png', height: 80,),
           label: 'Recomendações',
         ),
       ],
