@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 
-class CardSimplesRecomendacaoWidget extends StatelessWidget {
+class CardRecomendacaoWidget extends StatelessWidget {
   final int currentIndex;
-  final String type;
   final String img_pokemon;
 
-  CardSimplesRecomendacaoWidget(
-      {required this.currentIndex, required this.type, required this.img_pokemon});
+  CardRecomendacaoWidget(
+      {required this.currentIndex, required this.img_pokemon});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width / 3,
-      height: MediaQuery.of(context).size.height / 3,
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.width / 3,
       child: Card(
         clipBehavior: Clip.hardEdge,
         shape: RoundedRectangleBorder(
@@ -22,14 +21,14 @@ class CardSimplesRecomendacaoWidget extends StatelessWidget {
           children: [
             Positioned.fill(
               child: Image.asset(
-                'assets/images/bg_recomendacoes/$type.jpg',
+                'assets/images/bg_recomendacoes/star.png',
                 fit: BoxFit.cover,
               ),
             ),
             Positioned.fill(
               child: Image.asset(
                 'assets/images/$img_pokemon.png',
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.fitHeight,
               ),
             ),
             Material(
