@@ -64,7 +64,24 @@ flutter:
     - assets/images/recomendacao_icon.png
     - assets/images/app_vazado_icon.png
     - assets/images/user_icon.png
-    - assets/images/water.png
+    - assets/images/bg_recomendacoes/bug.jpg
+    - assets/images/bg_recomendacoes/dark.jpg
+    - assets/images/bg_recomendacoes/dragon.jpg
+    - assets/images/bg_recomendacoes/electric.jpg
+    - assets/images/bg_recomendacoes/fairy.jpg
+    - assets/images/bg_recomendacoes/fighting.jpg
+    - assets/images/bg_recomendacoes/fire.jpg
+    - assets/images/bg_recomendacoes/flying.jpg
+    - assets/images/bg_recomendacoes/ghost.jpg
+    - assets/images/bg_recomendacoes/grass.jpg
+    - assets/images/bg_recomendacoes/ice.jpg
+    - assets/images/bg_recomendacoes/normal.jpg
+    - assets/images/bg_recomendacoes/poison.jpg
+    - assets/images/bg_recomendacoes/psychic.jpg
+    - assets/images/bg_recomendacoes/rock.jpg
+    - assets/images/bg_recomendacoes/steel.jpg
+    - assets/images/bg_recomendacoes/water.png
+    - assets/images/exemplo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

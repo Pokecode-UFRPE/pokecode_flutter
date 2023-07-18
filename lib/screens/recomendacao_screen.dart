@@ -14,23 +14,25 @@ class RecomendacaoScreen extends StatelessWidget {
             Expanded(
               child: Column(
                 children: [
-                  CardSimplesRecomendacaoWidget(currentIndex: 0),
-                  CardSimplesRecomendacaoWidget(currentIndex: 1),
+                  CardSimplesRecomendacaoWidget(currentIndex: 0, type: 'fire', img_pokemon: 'exemplo'),
+                  CardSimplesRecomendacaoWidget(currentIndex: 0, type: 'bug', img_pokemon: 'exemplo'),
+                  // CardSimplesRecomendacaoWidget(currentIndex: 0, type: 'dragon', img_pokemon: 'exemplo'),
                 ],
               ),
             ),
             Expanded(
               child: Column(
                 children: [
-                  CardSimplesRecomendacaoWidget(currentIndex: 3),
-                  CardSimplesRecomendacaoWidget(currentIndex: 4),
+                  CardSimplesRecomendacaoWidget(currentIndex: 0, type: 'steel', img_pokemon: 'exemplo'),
+                  CardSimplesRecomendacaoWidget(currentIndex: 0, type: 'grass', img_pokemon: 'exemplo'),
+                  // CardSimplesRecomendacaoWidget(currentIndex: 0, type: 'flying', img_pokemon: 'exemplo'),
                 ],
               ),
             ),
             Expanded(
               child: Column(
                 children: [
-                  CardSimplesRecomendacaoWidget(currentIndex: 6),
+                  CardSimplesRecomendacaoWidget(currentIndex: 0, type: 'dark', img_pokemon: 'exemplo'),
                 ],
               ),
             ),

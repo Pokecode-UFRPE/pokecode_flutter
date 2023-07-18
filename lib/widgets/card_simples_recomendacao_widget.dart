@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 class CardSimplesRecomendacaoWidget extends StatelessWidget {
   final int currentIndex;
   final String type;
+  final String img_pokemon;
 
-  const CardSimplesRecomendacaoWidget({required this.currentIndex, this.type = 'water'});
+  CardSimplesRecomendacaoWidget(
+      {required this.currentIndex, required this.type, required this.img_pokemon});
 
   @override
   Widget build(BuildContext context) {
@@ -20,20 +22,20 @@ class CardSimplesRecomendacaoWidget extends StatelessWidget {
           children: [
             Positioned.fill(
               child: Image.asset(
-                'assets/images/water.png',
+                'assets/images/bg_recomendacoes/'+type+'.jpg',
                 fit: BoxFit.cover,
               ),
             ),
             Positioned.fill(
               child: Image.asset(
-                'assets/images/recomendacao_icon.png',
-                fit: BoxFit.cover,
+                'assets/images/'+img_pokemon+'.png',
+                fit: BoxFit.fitWidth,
               ),
             ),
             Material(
               color: Colors.transparent,
               child: InkWell(
-                splashColor: Color.fromARGB(255, 245, 85, 85),
+                splashColor: Color.fromARGB(255, 255, 255, 255),
                 onTap: () {
                   debugPrint('Card tapped.');
                 },
