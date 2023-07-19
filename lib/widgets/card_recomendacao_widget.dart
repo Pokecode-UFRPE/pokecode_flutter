@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokecode/widgets/popup_pokemon_selected.dart';
 
 class CardRecomendacaoWidget extends StatelessWidget {
   final int currentIndex;
@@ -36,7 +37,14 @@ class CardRecomendacaoWidget extends StatelessWidget {
               child: InkWell(
                 splashColor: Color.fromARGB(255, 255, 255, 255),
                 onTap: () {
-                  debugPrint('Card tapped.');
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return PopupPokemonSelected(
+                        img_pokemon: img_pokemon, name: 'cindaquill', number_pokedex: '155', types: ['fire', 'bug'],
+                      );
+                    },
+                  );
                 },
               ),
             ),

@@ -74,6 +74,7 @@ flutter:
     - assets/images/bg_recomendacoes/flying.jpg
     - assets/images/bg_recomendacoes/ghost.jpg
     - assets/images/bg_recomendacoes/grass.jpg
+    - assets/images/bg_recomendacoes/ground.jpg
     - assets/images/bg_recomendacoes/ice.jpg
     - assets/images/bg_recomendacoes/normal.jpg
     - assets/images/bg_recomendacoes/poison.jpg
@@ -81,6 +82,24 @@ flutter:
     - assets/images/bg_recomendacoes/rock.jpg
     - assets/images/bg_recomendacoes/steel.jpg
     - assets/images/bg_recomendacoes/water.png
+    - assets/images/tipos/bug.png
+    - assets/images/tipos/dark.png
+    - assets/images/tipos/dragon.png
+    - assets/images/tipos/electric.png
+    - assets/images/tipos/fairy.png
+    - assets/images/tipos/fighting.png
+    - assets/images/tipos/fire.png
+    - assets/images/tipos/flying.png
+    - assets/images/tipos/ghost.png
+    - assets/images/tipos/grass.png
+    - assets/images/tipos/ground.png
+    - assets/images/tipos/ice.png
+    - assets/images/tipos/normal.png
+    - assets/images/tipos/poison.png
+    - assets/images/tipos/psychic.png
+    - assets/images/tipos/rock.png
+    - assets/images/tipos/steel.png
+    - assets/images/tipos/water.png
     - assets/images/bg_recomendacoes/star.png
     - assets/images/exemplo.png
 
@@ -95,17 +114,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
+  fonts:
+    - family: PressStart2P
+      fonts:
+        - asset: assets/fonts/PressStart2P-Regular.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
