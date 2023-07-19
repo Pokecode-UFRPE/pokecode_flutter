@@ -11,15 +11,15 @@ class BottomNavigationBarWidget extends StatelessWidget {
       currentIndex: currentIndex,
       items:  <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Image.asset('assets/images/bag_icon.png', height: 60,),
+          icon: Image.asset('assets/icons/icon-bag.png', height: 60,),
           label: 'Sacola',
         ),
         BottomNavigationBarItem(
-          icon: Image.asset('assets/images/pokedex_icon.png', height: 60,),
+          icon: Image.asset('assets/icons/icon-pokedex.png', height: 60,),
           label: 'Pokedex',
         ),
         BottomNavigationBarItem(
-          icon: Image.asset('assets/images/recomendacao_icon.png', height: 60,),
+          icon: Image.asset('assets/icons/icon-recommendation.png', height: 60,),
           label: 'Recomendações',
         ),
       ],

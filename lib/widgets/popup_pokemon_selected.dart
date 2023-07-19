@@ -5,12 +5,16 @@ class PopupPokemonSelected extends StatelessWidget {
   final String name;
   final List<String> types;
   final String number_pokedex;
+  final bool capturado;
+  final String pokeball;
 
-  PopupPokemonSelected(
-      {required this.img_pokemon,
-      required this.name,
-      required this.types,
-      required this.number_pokedex});
+  PopupPokemonSelected({
+    required this.img_pokemon,
+    required this.name,
+    required this.types,
+    required this.number_pokedex,
+    required this.capturado,
+  }) : pokeball = capturado ? 'assets/icons/icon-pokeball.png' : 'assets/icons/icon-pokeball-white.png';
 
   @override
   Widget build(BuildContext context) {
@@ -20,29 +24,46 @@ class PopupPokemonSelected extends StatelessWidget {
       ),
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(25.0),
+          padding: const EdgeInsets.all(25.0),
           child: Column(
             children: [
-              Container(
-                margin: EdgeInsets.only(bottom: 40),
-                height: 300,
-                decoration: BoxDecoration(
-                    color: Color(0xF8F8F8),
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
+              Stack(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 40, top: 10),
+                    height: 300,
+                    decoration: BoxDecoration(
+                      color: const Color(0x00f8f8f8),
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.7),
                           spreadRadius: 10,
                           blurRadius: 10,
-                          offset: Offset(0, 0),
-                          blurStyle: BlurStyle.outer)
-                    ]),
-                child: Image.asset(
-                  'assets/images/$img_pokemon.png',
-                ),
+                          blurStyle: BlurStyle.outer,
+                        ),
+                      ],
+                    ),
+                    child: Image.asset(
+                      'assets/images/$img_pokemon.png',
+                    ),
+                  ),
+                   Container(
+                    margin: const EdgeInsets.only(bottom: 40, top: 10),
+                    height: 300,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: Image.asset(
+                      pokeball,
+                      alignment: Alignment.topRight,
+                    ),
+                  ),
+                ],
               ),
+
               Container(
-                margin: EdgeInsets.only(bottom: 5),
+                margin: const EdgeInsets.only(bottom: 20),
                 child: Column(
                   children: [
                     Text(
@@ -53,25 +74,23 @@ class PopupPokemonSelected extends StatelessWidget {
                         fontFamily: 'PressStart2P',
                       ),
                     ),
-                    Text('#$number_pokedex',
-                    style: const TextStyle(
-                      fontSize: 15,
-                      color: Colors.black54
-                    ),),
+                    Text(
+                      '#$number_pokedex',
+                      style:
+                          const TextStyle(fontSize: 15, color: Colors.black54),
+                    ),
                   ],
                 ),
               ),
               Container(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: types.length,
-                  itemBuilder: (context, index) {
-                    String atual = types[index].replaceAll('[', '').replaceAll(']', '');
-                    return 
-                        Image.asset(
-                            'assets/images/tipos/$atual.png'
-                          );
-                  },
+                margin: const EdgeInsets.only(bottom: 20),
+                child: Wrap(
+                  children: types.map((type) {
+                    String atual = type.replaceAll('[', '').replaceAll(']', '');
+                    return Image.asset(
+                      'assets/images/tipos/$atual.png',
+                    );
+                  }).toList(),
                 ),
               ),
               ElevatedButton(
