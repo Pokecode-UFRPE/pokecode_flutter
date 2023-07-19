@@ -11,6 +11,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: Color.fromRGBO(76, 124, 246, 1),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
