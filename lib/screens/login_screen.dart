@@ -9,14 +9,40 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreen extends State<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final TextEditingController _loginController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void _login() {
+    final String username = _loginController.text.trim();
+    final String password = _passwordController.text.trim();
+    final List<String> validUsers = [
+      "isis@ufrpe.br",
+      "enzo@ufrpe.br",
+      "pedro@ufrpe.br",
+      "cafe@ufrpe.br",
+      "andre@ufrpe.br"
+    ];
+    if (validUsers.contains(username) && password == "secure") {
+      Navigator.pushReplacementNamed(context, '/');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Usuário ou senha incorretos!')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
+      body: Form(
+        key: _formKey,
+        child: Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.only(right: 25, left: 25),
             color: CupertinoColors.extraLightBackgroundGray,
-            child: ListView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   margin: const EdgeInsets.only(top: 20),
@@ -31,8 +57,18 @@ class _LoginScreen extends State<LoginScreen> {
                       children: [
                         Container(
                           margin: const EdgeInsets.only(bottom: 25),
-                          child: TextField(
-                            obscureText: true,
+                          child: TextFormField(
+                            controller: _loginController,
+                            validator: (value) {
+                              if (value != null && value.isEmpty) {
+                                return "Por favor informe seu usuário";
+                              }
+                              if (!RegExp(
+                                      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                  .hasMatch(value!)) {
+                                return "Email inválido";
+                              }
+                            },
                             decoration: InputDecoration(
                                 fillColor:
                                     const Color.fromRGBO(224, 224, 224, 1.0),
@@ -52,8 +88,14 @@ class _LoginScreen extends State<LoginScreen> {
                                     fontWeight: FontWeight.w500)),
                           ),
                         ),
-                        TextField(
+                        TextFormField(
                           obscureText: true,
+                          controller: _passwordController,
+                          validator: (value) {
+                            if (value != null && value.isEmpty) {
+                              return "Por favor informe sua senha";
+                            }
+                          },
                           decoration: InputDecoration(
                               fillColor:
                                   const Color.fromRGBO(224, 224, 224, 1.0),
@@ -81,12 +123,17 @@ class _LoginScreen extends State<LoginScreen> {
                       'Esqueci a senha',
                       style: TextStyle(color: CupertinoColors.systemGrey2),
                     ),
-                    onPressed: () => print('test'),
+                    onPressed: () => Navigator.pushReplacementNamed(
+                        context, '/esqueci-senha'),
                   ),
                 ),
                 Center(
                   child: ElevatedButton(
-                    onPressed: () => print('okokok'),
+                    onPressed: () {
+                      if (_formKey.currentState?.validate() ?? false) {
+                        _login();
+                      }
+                    },
                     style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 30, vertical: 10),
@@ -108,7 +155,8 @@ class _LoginScreen extends State<LoginScreen> {
                           'Não possui uma conta?',
                         ),
                         TextButton(
-                            onPressed: () => print('ze da manga'),
+                            onPressed: () => Navigator.pushReplacementNamed(
+                                context, '/cadastro'),
                             child: const Text(
                               "Clique aqui",
                               style: TextStyle(color: Colors.deepOrange),
@@ -116,6 +164,8 @@ class _LoginScreen extends State<LoginScreen> {
                       ],
                     ))
               ],
-            )));
+            )),
+      ),
+    );
   }
 }
