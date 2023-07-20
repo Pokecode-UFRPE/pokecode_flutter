@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pokecode/screens/login_screen.dart';
 import 'screens/pokedex_screen.dart';
 import 'screens/sacola_screen.dart';
 import 'screens/recomendacao_screen.dart';
@@ -15,10 +14,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'PokeCode',
-      initialRoute: '/login',
+      initialRoute: '/',
       routes: {
         '/sacola': (context) => SacolaScreen(),
-        '/login': (context) => LoginScreen(),
         '/': (context) => PokedexScreen(),
         '/recomendacoes': (context) => RecomendacaoScreen(),
       },

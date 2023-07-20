@@ -1,103 +1,92 @@
 import 'package:flutter/material.dart';
+import 'package:pokecode/widgets/popup_pokemon_selected.dart';
 
 class CardPokemonHorizontalWidget extends StatelessWidget {
   final int currentIndex;
+  final String img_pokemon;
 
-  CardPokemonHorizontalWidget({required this.currentIndex});
+  CardPokemonHorizontalWidget({required this.currentIndex, required this.img_pokemon});
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Card(
-        color: Colors.white,
-        elevation: 4.0,
-        shadowColor: Colors.black,
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width / 1.05,
-          height: MediaQuery.of(context).size.width / 4,
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        '#0001',
-                        style: TextStyle(
-                          fontSize: 10,
-                          color: Colors.grey.shade500,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                      const SizedBox(height: 5),
-                      Text(
-                        'Bulbasaur',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
+      child: InkWell(
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return PopupPokemonSelected(
+                img_pokemon: img_pokemon,
+                name: 'Cindaquill',
+                number_pokedex: '0155',
+                types: ['fire', 'bug'],
+                capturado: true,
+              );
+            },
+          );
+        },
+        child: Center(
+          child: Card(
+            color: Colors.white,
+            elevation: 4.0,
+            shadowColor: Colors.black,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width / 1.05,
+              height: MediaQuery.of(context).size.width / 4.5,
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Card(
-                            color: Color.fromRGBO(101, 188, 94, 1),
-                            child: Container(
-                              width: 56,
-                              height: 18,
-                              alignment: Alignment.center,
-                              child: Text(
-                                'grama',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10,
-                                ),
-                              ),
+                          Text(
+                            '#0155',
+                            style: TextStyle(
+                              fontSize: 10,
+                              color: Colors.grey.shade500,
+                              fontWeight: FontWeight.w300,
                             ),
                           ),
-                          SizedBox(width: 5),
-                          Card(
-                            color: Color.fromRGBO(171, 106, 200, 1),
-                            child: Container(
-                              width: 56,
-                              height: 18,
-                              alignment: Alignment.center,
-                              child: Text(
-                                'veneno',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 10,
-                                ),
-                              ),
+                          const SizedBox(height: 1),
+                          Text(
+                            'Cindaquill',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w700,
                             ),
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Image.asset('assets/images/tipos/fire.png', height: 22),
+                              SizedBox(width: 5),
+                              Image.asset('assets/images/tipos/bug.png', height: 22),
+                            ],
                           ),
                         ],
                       ),
-                    ],
-                  ),
-                ),
-                CircleAvatar(
-                  backgroundColor: Colors.white, 
-                  radius: MediaQuery.of(context).size.width / 8,
-                  child: ClipOval(
-                    child: Image.asset(
-                      'assets/images/exemplo.png',
-                      width: MediaQuery.of(context).size.width / 8,
-                      height: MediaQuery.of(context).size.width / 8,
-                      fit: BoxFit.cover,
                     ),
-                  ),
+                    CircleAvatar(
+                      backgroundColor: Colors.white, 
+                      radius: MediaQuery.of(context).size.width / 6,
+                      child: ClipOval(
+                        child: Image.asset(
+                          'assets/images/$img_pokemon.png',
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
+        ), 
       ),
     );
   }

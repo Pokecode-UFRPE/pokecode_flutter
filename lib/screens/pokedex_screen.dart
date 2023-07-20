@@ -11,10 +11,13 @@ class PokedexScreen extends StatelessWidget {
       body: Container(
         child: Column(
           children: [
-            Row(
-              children: [
-                CardPokemonHorizontalWidget(currentIndex: 1),
-              ],
+            SizedBox(height: 10),
+            Align(
+              alignment: Alignment.topCenter,
+              child: CardPokemonHorizontalWidget(
+                currentIndex: 1,
+                img_pokemon: 'exemplo',
+              ),
             ),
           ],
         ),

@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.0.3 <4.0.0'
+  sdk: '>=3.0.5 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -59,13 +59,53 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/bag_icon.png
-    - assets/images/pokedex_icon.png
-    - assets/images/recomendacao_icon.png
     - assets/images/app_vazado_icon.png
     - assets/images/user_icon.png
-    - assets/logotype/logo-up.png
-    - assets/fonts/
+    - assets/images/bg_recomendacoes/bug.jpg
+    - assets/images/bg_recomendacoes/dark.jpg
+    - assets/images/bg_recomendacoes/dragon.jpg
+    - assets/images/bg_recomendacoes/electric.jpg
+    - assets/images/bg_recomendacoes/fairy.jpg
+    - assets/images/bg_recomendacoes/fighting.jpg
+    - assets/images/bg_recomendacoes/fire.jpg
+    - assets/images/bg_recomendacoes/flying.jpg
+    - assets/images/bg_recomendacoes/ghost.jpg
+    - assets/images/bg_recomendacoes/grass.jpg
+    - assets/images/bg_recomendacoes/ground.jpg
+    - assets/images/bg_recomendacoes/ice.jpg
+    - assets/images/bg_recomendacoes/normal.jpg
+    - assets/images/bg_recomendacoes/poison.jpg
+    - assets/images/bg_recomendacoes/psychic.jpg
+    - assets/images/bg_recomendacoes/rock.jpg
+    - assets/images/bg_recomendacoes/steel.jpg
+    - assets/images/bg_recomendacoes/water.png
+    - assets/images/bg_recomendacoes/star.png
+    - assets/images/tipos/bug.png
+    - assets/images/tipos/dark.png
+    - assets/images/tipos/dragon.png
+    - assets/images/tipos/electric.png
+    - assets/images/tipos/fairy.png
+    - assets/images/tipos/fighting.png
+    - assets/images/tipos/fire.png
+    - assets/images/tipos/flying.png
+    - assets/images/tipos/ghost.png
+    - assets/images/tipos/grass.png
+    - assets/images/tipos/ground.png
+    - assets/images/tipos/ice.png
+    - assets/images/tipos/normal.png
+    - assets/images/tipos/poison.png
+    - assets/images/tipos/psychic.png
+    - assets/images/tipos/rock.png
+    - assets/images/tipos/steel.png
+    - assets/images/tipos/water.png
+    - assets/icons/icon-bag.png
+    - assets/icons/icon-pokeball.png
+    - assets/icons/icon-pokeball-open.png
+    - assets/icons/icon-pokeball-semiopen.png
+    - assets/icons/icon-pokeball-white.png
+    - assets/icons/icon-pokedex.png
+    - assets/icons/icon-recommendation.png
+    - assets/images/exemplo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -73,8 +113,15 @@ flutter:
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
 
-fonts:
-  - family: PS2
-    fonts:
-      - asset: assets/fonts/PressStart2P-Regular.ttf
-        weight: 300
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  fonts:
+    - family: PressStart2P
+      fonts:
+        - asset: assets/fonts/PressStart2P-Regular.ttf
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
