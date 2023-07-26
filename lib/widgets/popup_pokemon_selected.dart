@@ -33,7 +33,7 @@ class PopupPokemonSelected extends StatelessWidget {
                     margin: const EdgeInsets.only(bottom: 40, top: 10),
                     height: 300,
                     decoration: BoxDecoration(
-                      color: const Color(0x00f8f8f8),
+                      color: Color.fromARGB(0, 248, 248, 248),
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
@@ -44,8 +44,8 @@ class PopupPokemonSelected extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: Image.asset(
-                      'assets/images/$img_pokemon.png',
+                    child: Image.network(
+                      'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/$img_pokemon.png',
                     ),
                   ),
                    Container(

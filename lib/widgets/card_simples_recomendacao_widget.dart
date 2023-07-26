@@ -27,9 +27,9 @@ class CardSimplesRecomendacaoWidget extends StatelessWidget {
               ),
             ),
             Positioned.fill(
-              child: Image.asset(
-                'assets/images/$img_pokemon.png',
-                fit: BoxFit.fitWidth,
+              child: Image.network(
+                'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/003.png',
+                fit: BoxFit.fitHeight,
               ),
             ),
             Material(

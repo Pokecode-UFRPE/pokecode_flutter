@@ -27,10 +27,9 @@ class CardRecomendacaoWidget extends StatelessWidget {
               ),
             ),
             Positioned.fill(
-              child: Image.asset(
-                'assets/images/$img_pokemon.png',
-                fit: BoxFit.fitHeight,
-              ),
+                child: Image.network(
+                  'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/$img_pokemon.png',
+                ),
             ),
             Material(
               color: Colors.transparent,
@@ -41,7 +40,11 @@ class CardRecomendacaoWidget extends StatelessWidget {
                     context: context,
                     builder: (BuildContext context) {
                       return PopupPokemonSelected(
-                        img_pokemon: img_pokemon, name: 'cindaquill', number_pokedex: '155', types: ['fire', 'bug'], capturado: true,
+                        img_pokemon: img_pokemon,
+                        name: 'cindaquill',
+                        number_pokedex: '155',
+                        types: ['fire', 'bug'],
+                        capturado: true,
                       );
                     },
                   );
