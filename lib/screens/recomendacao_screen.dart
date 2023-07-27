@@ -22,19 +22,25 @@ class RecomendacaoScreen extends StatelessWidget {
             ),
             Row(
               children: [
-                FutureBuilder<String?>(
-                  future: getPokemonName(1),
+                FutureBuilder<Pokemon?>(
+                  future: getPokemon(1),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return CircularProgressIndicator(); 
                     } else if (snapshot.hasError) {
                       return Text('Error: ${snapshot.error}');
                     } else {
-                      return Text(snapshot.data ?? 'No data available.');
+                      Pokemon? nsei = snapshot.data;
+                      return Column(
+                        children: [
+                          Text(nsei!.name),
+                          Text('${nsei.pokedex_number}')
+                        ],
+                      );
                     }
                   },
                 ),
-              ],
+              ]
             ),
             Row(
               children: [

@@ -1,13 +1,30 @@
 import 'package:firebase_database/firebase_database.dart';
 
-// Modifique a função para receber o índice como parâmetro
-Future<String?> getPokemonName(int index) async {
-  final ref = FirebaseDatabase.instance.reference();
-  final snapshot = await ref.child('pokemon/$index/name').get(); // Acessa o campo 'name' do índice fornecido no caminho 'pokemon'
+Future<Pokemon?> getPokemon(int index) async {
+  final ref = FirebaseDatabase.instance.ref();
+  final DataSnapshot snapshot = await ref.child('pokemon/$index').get(); 
 
   if (snapshot.exists) {
-    return snapshot.value as String; // Supondo que 'name' é do tipo String
-  } else {
-    return 'No data available.';
+    Map<String, dynamic>? json = snapshot.value as Map<String, dynamic>?;
+    print(json);
+    Pokemon result = Pokemon.fromJson(json!);
+    return result;
+  }
+}
+
+class Pokemon {
+  String name;
+  int pokedex_number;
+  Pokemon(this.name, this.pokedex_number);
+  Pokemon.fromJson(Map<String, dynamic> json)
+      : name = json['name'],
+        pokedex_number = json['pokedex_number'];
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'pokedex_number': pokedex_number,
+      };
+  @override
+  String toString() {
+    return 'nome: $name, pokedex number: $pokedex_number';
   }
 }
