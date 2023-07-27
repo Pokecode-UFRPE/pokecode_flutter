@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:pokecode/services/db_firestore.dart';
 import 'package:pokecode/widgets/popup_pokemon_selected.dart';
 
 class CardRecomendacaoWidget extends StatelessWidget {
   final int currentIndex;
-  final String img_pokemon;
+  Pokemon? pokemon;
 
   CardRecomendacaoWidget(
-      {required this.currentIndex, required this.img_pokemon});
+      {required this.currentIndex, required this.pokemon});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class CardRecomendacaoWidget extends StatelessWidget {
             ),
             Positioned.fill(
                 child: Image.network(
-                  'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/$img_pokemon.png',
+                  'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/00${pokemon?.pokedex_number}.png',
                 ),
             ),
             Material(
@@ -40,8 +41,8 @@ class CardRecomendacaoWidget extends StatelessWidget {
                     context: context,
                     builder: (BuildContext context) {
                       return PopupPokemonSelected(
-                        img_pokemon: img_pokemon,
-                        name: 'cindaquill',
+                        img_pokemon: pokemon!.pokedex_number,
+                        name: pokemon!.name,
                         number_pokedex: '155',
                         types: ['fire', 'bug'],
                         capturado: true,

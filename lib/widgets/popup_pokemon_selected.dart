@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class PopupPokemonSelected extends StatelessWidget {
-  final String img_pokemon;
+  final int img_pokemon;
   final String name;
   final List<String> types;
   final String number_pokedex;
@@ -45,7 +45,7 @@ class PopupPokemonSelected extends StatelessWidget {
                       ],
                     ),
                     child: Image.network(
-                      'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/$img_pokemon.png',
+                      'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/00$img_pokemon.png',
                     ),
                   ),
                    Container(

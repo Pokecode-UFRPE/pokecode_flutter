@@ -14,6 +14,7 @@ Future<Pokemon?> getPokemon(int index) async {
 
 class Pokemon {
   String name;
+  // ignore: non_constant_identifier_names
   int pokedex_number;
   Pokemon(this.name, this.pokedex_number);
   Pokemon.fromJson(Map<String, dynamic> json)

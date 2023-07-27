@@ -17,29 +17,12 @@ class RecomendacaoScreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                CardRecomendacaoWidget(currentIndex: 0, img_pokemon: '001'),
+                // CardRecomendacaoWidget(currentIndex: 0, img_pokemon: '001'),
               ],
             ),
             Row(
               children: [
-                FutureBuilder<Pokemon?>(
-                  future: getPokemon(1),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return CircularProgressIndicator(); 
-                    } else if (snapshot.hasError) {
-                      return Text('Error: ${snapshot.error}');
-                    } else {
-                      Pokemon? nsei = snapshot.data;
-                      return Column(
-                        children: [
-                          Text(nsei!.name),
-                          Text('${nsei.pokedex_number}')
-                        ],
-                      );
-                    }
-                  },
-                ),
+                buscandoPokemon(9)
               ]
             ),
             Row(
@@ -60,4 +43,20 @@ class RecomendacaoScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+buscandoPokemon(int index) {
+  return FutureBuilder<Pokemon?>(
+    future: getPokemon(index),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return CircularProgressIndicator();
+      } else if (snapshot.hasError) {
+        return Text('Error: ${snapshot.error}');
+      } else {
+        Pokemon? nsei = snapshot.data;        
+        return CardRecomendacaoWidget(currentIndex: 0, pokemon: nsei);
+      }
+    },
+  );
 }
