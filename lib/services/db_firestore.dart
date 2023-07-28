@@ -3,7 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 // ignore: body_might_complete_normally_nullable
 Future<Pokemon?> getPokemon(int index) async {
   final ref = FirebaseDatabase.instance.ref();
-  final DataSnapshot snapshot = await ref.child('pokemon/$index').get(); 
+  final DataSnapshot snapshot = await ref.child('/$index').get(); 
 
   if (snapshot.exists) {
     Map<String, dynamic>? json = snapshot.value as Map<String, dynamic>?;

@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:pokecode/widgets/app_bar_widget.dart';
 import '../services/db_firestore.dart';
@@ -17,22 +18,21 @@ class RecomendacaoScreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                buscandoPokemon(52)
+                constructorStarCard(randomize())
               ],
             ),
             Row(
               children: [
-                buscandoPokemon(40)
-              ]
+                constructorComonCard(randomize()),
+                constructorComonCard(randomize()),
+                constructorComonCard(randomize())
+              ],
             ),
             Row(
               children: [
-                CardSimplesRecomendacaoWidget(
-                    currentIndex: 0, type: 'bug', img_pokemon: 'exemplo'),
-                CardSimplesRecomendacaoWidget(
-                    currentIndex: 0, type: 'flying', img_pokemon: 'exemplo'),
-                CardSimplesRecomendacaoWidget(
-                    currentIndex: 0, type: 'fire', img_pokemon: 'exemplo'),
+                constructorComonCard(randomize()),
+                constructorComonCard(randomize()),
+                constructorComonCard(randomize())
               ],
             ),
           ],
@@ -45,7 +45,7 @@ class RecomendacaoScreen extends StatelessWidget {
   }
 }
 
-buscandoPokemon(int index) {
+constructorStarCard(int index) {
   return FutureBuilder<Pokemon?>(
     future: getPokemon(index),
     builder: (context, snapshot) {
@@ -54,9 +54,31 @@ buscandoPokemon(int index) {
       } else if (snapshot.hasError) {
         return Text('Error: ${snapshot.error}');
       } else {
-        Pokemon? nsei = snapshot.data;        
-        return CardRecomendacaoWidget(currentIndex: 0, pokemon: nsei);
+        Pokemon? pk = snapshot.data;        
+        return CardRecomendacaoWidget(currentIndex: 0, pokemon: pk);
       }
     },
   );
+}
+
+constructorComonCard(int index) {
+  return FutureBuilder<Pokemon?>(
+    future: getPokemon(index),
+    builder: (context, snapshot) {
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return CircularProgressIndicator();
+      } else if (snapshot.hasError) {
+        return Text('Error: ${snapshot.error}');
+      } else {
+        Pokemon? pk1 = snapshot.data;        
+        return CardSimplesRecomendacaoWidget(currentIndex: 0, pokemon: pk1);
+      }
+    },
+  );
+}
+
+randomize() {
+  Random random = Random();
+  int randomNumber = random.nextInt(898);
+  return randomNumber;
 }
