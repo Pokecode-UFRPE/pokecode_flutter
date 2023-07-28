@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 
 class PopupPokemonSelected extends StatelessWidget {
-  final int img_pokemon;
   final String name;
+  final int number_pokedex;
   final List<String> types;
-  final String number_pokedex;
   final bool capturado;
   final String pokeball;
+  final String link;
 
   PopupPokemonSelected({
-    required this.img_pokemon,
     required this.name,
-    required this.types,
     required this.number_pokedex,
+    required this.types,
     required this.capturado,
-  }) : pokeball = capturado ? 'assets/icons/icon-pokeball.png' : 'assets/icons/icon-pokeball-white.png';
+    required this.link,
+  }) : pokeball = capturado
+            ? 'assets/icons/icon-pokeball.png'
+            : 'assets/icons/icon-pokeball-white.png';
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +47,10 @@ class PopupPokemonSelected extends StatelessWidget {
                       ],
                     ),
                     child: Image.network(
-                      'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/00$img_pokemon.png',
+                      link,
                     ),
                   ),
-                   Container(
+                  Container(
                     margin: const EdgeInsets.only(bottom: 40, top: 10),
                     height: 300,
                     decoration: const BoxDecoration(
@@ -61,7 +63,6 @@ class PopupPokemonSelected extends StatelessWidget {
                   ),
                 ],
               ),
-
               Container(
                 margin: const EdgeInsets.only(bottom: 20),
                 child: Column(

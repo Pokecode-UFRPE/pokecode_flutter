@@ -17,12 +17,12 @@ class RecomendacaoScreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                // CardRecomendacaoWidget(currentIndex: 0, img_pokemon: '001'),
+                buscandoPokemon(52)
               ],
             ),
             Row(
               children: [
-                buscandoPokemon(9)
+                buscandoPokemon(40)
               ]
             ),
             Row(
