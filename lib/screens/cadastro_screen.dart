@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,16 +15,44 @@ class _CadastroScreen extends State<CadastroScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  void _cadastrar() async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: _emailController.text, password: _passwordController.text);
+
+      User user = userCredential.user!;
+      await user.updateDisplayName(_userController.text);
+      await user.reload();
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Usuário cadastrado com sucesso'),
+          backgroundColor: Colors.blueAccent,
+        ),
+      );
+      Navigator.pushReplacementNamed(context, '/login');
+    } catch (e) {
+      print(e);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Email já está em uso"),
+          backgroundColor: Colors.deepOrange,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Form(
-        key: _formKey,
-        child: Container(
+          key: _formKey,
+          child: Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.symmetric(horizontal: 25),
             color: CupertinoColors.extraLightBackgroundGray,
-            child: Column(
+            child: SingleChildScrollView(
+                child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image(
@@ -130,7 +159,8 @@ class _CadastroScreen extends State<CadastroScreen> {
                           shadowColor: Colors.blueGrey),
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) {
-                          Navigator.pushReplacementNamed(context, '/');
+                          _cadastrar();
+                          // Navigator.pushReplacementNamed(context, '/');
                         }
                       },
                       child: const Text('CADASTRO',
@@ -158,7 +188,7 @@ class _CadastroScreen extends State<CadastroScreen> {
                     ))
               ],
             )),
-      ),
+          )),
     );
   }
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,19 +14,20 @@ class _LoginScreen extends State<LoginScreen> {
   final TextEditingController _loginController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _login() {
+  void _login() async {
     final String username = _loginController.text.trim();
     final String password = _passwordController.text.trim();
-    final List<String> validUsers = [
-      "isis@ufrpe.br",
-      "enzo@ufrpe.br",
-      "pedro@ufrpe.br",
-      "cafe@ufrpe.br",
-      "andre@ufrpe.br"
-    ];
-    if (validUsers.contains(username) && password == "secure") {
+    try {
+      UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: username,
+        password: password,
+      );
+
       Navigator.pushReplacementNamed(context, '/');
-    } else {
+    } catch (e) {
+      // Lidar com erros de login
+      print('Erro durante o login: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Usuário ou senha incorretos!')),
       );
@@ -36,12 +38,13 @@ class _LoginScreen extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Form(
-        key: _formKey,
-        child: Container(
+          key: _formKey,
+          child: Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.only(right: 25, left: 25),
             color: CupertinoColors.extraLightBackgroundGray,
-            child: Column(
+            child: SingleChildScrollView(
+                child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
@@ -165,7 +168,7 @@ class _LoginScreen extends State<LoginScreen> {
                     ))
               ],
             )),
-      ),
+          )),
     );
   }
 }

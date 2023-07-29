@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,27 @@ class EsqueciSenhaScreen extends StatefulWidget {
 class _EsqueciSenhaScreen extends State<EsqueciSenhaScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
+
+  void _resetPassword() async {
+    String email = _emailController.text.trim();
+
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Você receberá as próximas instruções no seu email!'),
+        ),
+      );
+      Navigator.pushReplacementNamed(context, '/login');
+    } catch (e) {
+      print('Erro ao enviar o email de recuperação de senha: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Erro ao enviar o email de recuperação de senha!'),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,16 +105,7 @@ class _EsqueciSenhaScreen extends State<EsqueciSenhaScreen> {
                                 borderRadius: BorderRadius.circular(20),
                               ),
                               shadowColor: Colors.blueGrey),
-                          onPressed: () {
-                            if (_formKey.currentState?.validate() ?? false) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text(
-                                        'Você receberá as próximas instruções no seu email!')),
-                              );
-                              Navigator.pushReplacementNamed(context, '/login');
-                            }
-                          },
+                          onPressed: _resetPassword,
                           child: const Text('ENVIAR',
                               style:
                                   TextStyle(fontSize: 20, fontFamily: 'PS2')),

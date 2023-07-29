@@ -44,44 +44,39 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAu-5C823C6NhbnlW8feIMQXvnpSK2n4VM',
-    appId: '1:270990256178:web:42e920a765a63eb755342b',
-    messagingSenderId: '270990256178',
-    projectId: 'pokecode-ufrpe',
-    authDomain: 'pokecode-ufrpe.firebaseapp.com',
-    databaseURL: 'https://pokecode-ufrpe-default-rtdb.firebaseio.com',
-    storageBucket: 'pokecode-ufrpe.appspot.com',
-    measurementId: 'G-BYSM2DJ6M0',
+    apiKey: 'AIzaSyDZ_DkQHl9rxUG28gBHeK0J7tZlHhaZIJU',
+    appId: '1:1030446710608:web:da86b1128ed91b08037655',
+    messagingSenderId: '1030446710608',
+    projectId: 'pokecode-445e0',
+    authDomain: 'pokecode-445e0.firebaseapp.com',
+    storageBucket: 'pokecode-445e0.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDD0w1MjWo4NUWTRXqEsaZkB6S_DNhHY1Q',
-    appId: '1:270990256178:android:1459a0d96e23171e55342b',
-    messagingSenderId: '270990256178',
-    projectId: 'pokecode-ufrpe',
-    databaseURL: 'https://pokecode-ufrpe-default-rtdb.firebaseio.com',
-    storageBucket: 'pokecode-ufrpe.appspot.com',
+    apiKey: 'AIzaSyAESd-RC6v4tAAVVvrabLLqEfACL3HWF-c',
+    appId: '1:1030446710608:android:40fff8e3cd80bcb5037655',
+    messagingSenderId: '1030446710608',
+    projectId: 'pokecode-445e0',
+    storageBucket: 'pokecode-445e0.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD_6bN3ahpcUxWrvfp8baaWnWDeJvn3Lis',
-    appId: '1:270990256178:ios:cf109026b537c0ea55342b',
-    messagingSenderId: '270990256178',
-    projectId: 'pokecode-ufrpe',
-    databaseURL: 'https://pokecode-ufrpe-default-rtdb.firebaseio.com',
-    storageBucket: 'pokecode-ufrpe.appspot.com',
-    iosClientId: '270990256178-5ckuna4p5qnh3ttutcj9pe9jhsc8noaj.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDu5J7K0skidKy66Nylj9SuS1C81YI1n74',
+    appId: '1:1030446710608:ios:e1cf32b0ff651c96037655',
+    messagingSenderId: '1030446710608',
+    projectId: 'pokecode-445e0',
+    storageBucket: 'pokecode-445e0.appspot.com',
+    iosClientId: '1030446710608-kgvmld08bcois0paql3ghgudk1b12tns.apps.googleusercontent.com',
     iosBundleId: 'com.example.pokecode',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyD_6bN3ahpcUxWrvfp8baaWnWDeJvn3Lis',
-    appId: '1:270990256178:ios:9b771e3dbbfc714b55342b',
-    messagingSenderId: '270990256178',
-    projectId: 'pokecode-ufrpe',
-    databaseURL: 'https://pokecode-ufrpe-default-rtdb.firebaseio.com',
-    storageBucket: 'pokecode-ufrpe.appspot.com',
-    iosClientId: '270990256178-eoa93cqf5v302bjlrigbnh1pgb6f8sps.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDu5J7K0skidKy66Nylj9SuS1C81YI1n74',
+    appId: '1:1030446710608:ios:342f9cbdb058c581037655',
+    messagingSenderId: '1030446710608',
+    projectId: 'pokecode-445e0',
+    storageBucket: 'pokecode-445e0.appspot.com',
+    iosClientId: '1030446710608-t2n1bngubdjp2f9fj1qrj1h3geoq6i3h.apps.googleusercontent.com',
     iosBundleId: 'com.example.pokecode.RunnerTests',
   );
 }
