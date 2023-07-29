@@ -16,7 +16,6 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   User? currentUser = FirebaseAuth.instance.currentUser;
-  print(currentUser?.displayName);
   String initialRoute = currentUser == null ? '/login' : '/';
   runApp(MyApp(initialRoute: initialRoute));
 }

@@ -23,8 +23,12 @@ class _LoginScreen extends State<LoginScreen> {
         email: username,
         password: password,
       );
-
-      Navigator.pushReplacementNamed(context, '/');
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      currentUser == null
+          ? ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Usuário ou senha incorretos!')),
+            )
+          : Navigator.pushReplacementNamed(context, '/');
     } catch (e) {
       // Lidar com erros de login
       print('Erro durante o login: $e');
