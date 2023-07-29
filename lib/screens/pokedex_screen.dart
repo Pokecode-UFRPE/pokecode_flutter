@@ -14,3 +14,5 @@ class PokedexScreen extends StatelessWidget {
     );
   }
 }
+
+// Navigator.pushNamed(context,  '/second' );
