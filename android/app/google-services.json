@@ -1,37 +1,38 @@
 {
   "project_info": {
-    "project_number": "1030446710608",
-    "project_id": "pokecode-445e0",
-    "storage_bucket": "pokecode-445e0.appspot.com"
+    "project_number": "270990256178",
+    "firebase_url": "https://pokecode-ufrpe-default-rtdb.firebaseio.com",
+    "project_id": "pokecode-ufrpe",
+    "storage_bucket": "pokecode-ufrpe.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1030446710608:android:40fff8e3cd80bcb5037655",
+        "mobilesdk_app_id": "1:270990256178:android:1459a0d96e23171e55342b",
         "android_client_info": {
           "package_name": "com.example.pokecode"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1030446710608-oae2ov81rrmprc82c565t1i886gcdjsv.apps.googleusercontent.com",
+          "client_id": "270990256178-f2r8o8egt9n5sv7snh8nr7smr4noth0d.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAESd-RC6v4tAAVVvrabLLqEfACL3HWF-c"
+          "current_key": "AIzaSyDD0w1MjWo4NUWTRXqEsaZkB6S_DNhHY1Q"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1030446710608-oae2ov81rrmprc82c565t1i886gcdjsv.apps.googleusercontent.com",
+              "client_id": "270990256178-f2r8o8egt9n5sv7snh8nr7smr4noth0d.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "1030446710608-kgvmld08bcois0paql3ghgudk1b12tns.apps.googleusercontent.com",
+              "client_id": "270990256178-5ckuna4p5qnh3ttutcj9pe9jhsc8noaj.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.example.pokecode"
