@@ -11,6 +11,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      automaticallyImplyLeading: false,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -20,7 +21,9 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16,),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
               height: 40,
               child: TextField(
                 decoration: InputDecoration(
