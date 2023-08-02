@@ -18,7 +18,7 @@ class RecomendacaoScreen extends StatelessWidget {
           children: [
             Row(
               children: [
-                constructorStarCard(randomize())
+                constructorStarCard(4)
               ],
             ),
             Row(
@@ -66,7 +66,7 @@ constructorComonCard(int index) {
     future: getPokemon(index),
     builder: (context, snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
-        return CircularProgressIndicator();
+        return Image.asset('assets/images/spinner_ball.gif',height: 40,);
       } else if (snapshot.hasError) {
         return Text('Error: ${snapshot.error}');
       } else {
