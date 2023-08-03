@@ -1,6 +1,8 @@
 import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:pokecode/widgets/app_bar_widget.dart';
+
 import '../services/db_firestore.dart';
 import '../widgets/bottom_navigation_bar_widget.dart';
 import '../widgets/card_recomendacao_widget.dart';
@@ -17,9 +19,7 @@ class RecomendacaoScreen extends StatelessWidget {
         child: Column(
           children: [
             Row(
-              children: [
-                constructorStarCard(4)
-              ],
+              children: [constructorStarCard(4)],
             ),
             Row(
               children: [
@@ -54,7 +54,7 @@ constructorStarCard(int index) {
       } else if (snapshot.hasError) {
         return Text('Error: ${snapshot.error}');
       } else {
-        Pokemon? pk = snapshot.data;        
+        Pokemon? pk = snapshot.data;
         return CardRecomendacaoWidget(currentIndex: 0, pokemon: pk);
       }
     },
@@ -66,11 +66,14 @@ constructorComonCard(int index) {
     future: getPokemon(index),
     builder: (context, snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
-        return Image.asset('assets/images/spinner_ball.gif',height: 40,);
+        return Image.asset(
+          'assets/images/spinner_ball.gif',
+          height: 40,
+        );
       } else if (snapshot.hasError) {
         return Text('Error: ${snapshot.error}');
       } else {
-        Pokemon? pk1 = snapshot.data;        
+        Pokemon? pk1 = snapshot.data;
         return CardSimplesRecomendacaoWidget(currentIndex: 0, pokemon: pk1);
       }
     },

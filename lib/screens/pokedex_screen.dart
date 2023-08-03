@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../services/db_firestore.dart';
 import '../widgets/app_bar_widget.dart';
 import '../widgets/bottom_navigation_bar_widget.dart';
@@ -11,15 +12,13 @@ class PokedexScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MyAppBar(currentIndex: 0),
-      body: 
-      // Column(children: [constructorCard(4)],),
-      ListView.builder(
-        itemCount: 899,
-        itemBuilder: (context, index){
-          return constructorCard(index+1);
-        } 
-      ),
-      
+      body:
+          // Column(children: [constructorCard(4)],),
+          ListView.builder(
+              itemCount: 899,
+              itemBuilder: (context, index) {
+                return constructorCard(index + 1);
+              }),
       bottomNavigationBar: BottomNavigationBarWidget(
         currentIndex: 1,
       ),
@@ -32,12 +31,22 @@ constructorCard(int index) {
     future: getPokemon(index),
     builder: (context, snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
-        return Image.asset('assets/images/spinner_ball.gif',height: 40,);
+        return Container(
+          margin: const EdgeInsets.symmetric(vertical: 20),
+          child: Image.asset('assets/images/spinner_ball.gif', height: 40),
+        );
       } else if (snapshot.hasError) {
         return Text('Error: ${snapshot.error}');
       } else {
         Pokemon? pk = snapshot.data;
-        return CardPokemonHorizontalWidget(currentIndex: 0, pokemon: pk);
+        if (pk != null) {
+          return CardPokemonHorizontalWidget(currentIndex: 0, pokemon: pk);
+        } else {
+          return Container(
+            margin: const EdgeInsets.symmetric(vertical: 20),
+            child: Image.asset('assets/images/spinner_ball.gif', height: 40),
+          );
+        }
       }
     },
   );

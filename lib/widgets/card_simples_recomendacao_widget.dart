@@ -14,15 +14,18 @@ class CardSimplesRecomendacaoWidget extends StatelessWidget {
   // corrigindo o valor do nº da pokedex para chamar a imagem corretamente
   Widget build(BuildContext context) {
     String link = '';
-    if (pokemon!.pokedex_number < 10){
-      link = 'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/00${pokemon!.pokedex_number}.png';
-    } else if ((pokemon!.pokedex_number < 100)){
-      link = 'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/0${pokemon!.pokedex_number}.png';
+    if (pokemon!.pokedex_number < 10) {
+      link =
+          'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/00${pokemon!.pokedex_number}.png';
+    } else if ((pokemon!.pokedex_number < 100)) {
+      link =
+          'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/0${pokemon!.pokedex_number}.png';
     } else {
-      link = 'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${pokemon!.pokedex_number}.png';
+      link =
+          'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${pokemon!.pokedex_number}.png';
     }
     List<String> tipos = pokemon!.typing.split("~");
-    
+
     return SizedBox(
       width: MediaQuery.of(context).size.width / 3,
       height: MediaQuery.of(context).size.height / 3,
@@ -35,7 +38,7 @@ class CardSimplesRecomendacaoWidget extends StatelessWidget {
           children: [
             Positioned.fill(
               child: Image.asset(
-                'assets/images/bg_recomendacoes/${tipos[0]}.jpg',
+                'assets/images/bg_recomendacoes/${tipos[0].toLowerCase()}.jpg',
                 fit: BoxFit.cover,
               ),
             ),
@@ -54,12 +57,11 @@ class CardSimplesRecomendacaoWidget extends StatelessWidget {
                     context: context,
                     builder: (BuildContext context) {
                       return PopupPokemonSelected(
-                        name: pokemon!.name,
-                        number_pokedex: pokemon!.pokedex_number,
-                        types: tipos,
-                        capturado: true,
-                        link: link
-                      );
+                          name: pokemon!.name,
+                          number_pokedex: pokemon!.pokedex_number,
+                          types: tipos,
+                          capturado: true,
+                          link: link);
                     },
                   );
                 },
