@@ -24,9 +24,12 @@ class PopupPokemonSelected extends StatefulWidget {
 }
 
 class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
+  bool _showActions = false;
+
   void changeCapturado() {
     setState(() {
       widget.capturado = !widget.capturado;
+      _showActions = !_showActions;
       if (widget.capturado) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -70,7 +73,7 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                       margin: const EdgeInsets.only(bottom: 40, top: 10),
                       height: 300,
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(0, 248, 248, 248),
+                        color: const Color.fromARGB(0, 248, 248, 248),
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
@@ -95,8 +98,6 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                       child: GestureDetector(
                         onTap: () {
                           changeCapturado();
-                          // Ação que será executada quando o botão for pressionado
-                          print('Botão pressionado!');
                         },
                         child: Image.asset(
                           widget.pokeball,
@@ -104,7 +105,7 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                           alignment: Alignment.topRight,
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
                 Container(
@@ -120,7 +121,7 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                         ),
                       ),
                       Text(
-                        '#${widget.number_pokedex}',
+                        '#${widget.number_pokedex.toString().padLeft(4, '0')}',
                         style: const TextStyle(
                             fontSize: 15, color: Colors.black54),
                       ),
@@ -135,11 +136,120 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                     }).toList(),
                   ),
                 ),
+                PokeballTools(capturado: false),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class PokeballTools extends StatefulWidget {
+  bool capturado;
+  bool favorito = false;
+  int gosto = 0;
+  String pokeball;
+
+  PokeballTools({
+    required this.capturado,
+  }) : pokeball = capturado
+            ? 'assets/icons/icon-pokeball.png'
+            : 'assets/icons/icon-pokeball-white.png';
+
+  @override
+  _PokeballToolsState createState() => _PokeballToolsState();
+}
+
+class _PokeballToolsState extends State<PokeballTools> {
+  // Funções que representam as ações que podem ser selecionadas
+  void favoritar() {
+    setState(() {
+      widget.favorito = !widget.favorito;
+    });
+  }
+
+  void gosto() {
+    setState(() {
+      if (widget.gosto == 2) {
+        widget.gosto = 0;
+      } else {
+        widget.gosto = 2;
+      }
+    });
+  }
+
+  void naoGosto() {
+    setState(() {
+      if (widget.gosto == 3) {
+        widget.gosto = 0;
+      } else {
+        widget.gosto = 3;
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          width: 150,
+          height: 30,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.7),
+                spreadRadius: 3,
+                blurRadius: 5,
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  // Ação que será executada quando o botão for pressionado
+                  favoritar();
+                },
+                child: Image.asset(
+                  widget.favorito
+                      ? 'assets/icons/icon-heart-fill.png'
+                      : 'assets/icons/icon-heart.png',
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  gosto();
+                },
+                child: Image.asset(
+                  widget.gosto == 2
+                      ? 'assets/icons/icon-thumb-up-fill.png'
+                      : 'assets/icons/icon-thumb-up.png',
+                  // Coloque o caminho da imagem "pokeball" aqui
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  naoGosto();
+                },
+                child: Image.asset(
+                  widget.gosto == 3
+                      ? 'assets/icons/icon-thumb-down-fill.png'
+                      : 'assets/icons/icon-thumb-down.png',
+                  // Coloque o caminho da imagem "pokeball" aqui
+                ),
+              )
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

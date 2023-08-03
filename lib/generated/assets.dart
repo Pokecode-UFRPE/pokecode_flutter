@@ -418,7 +418,7 @@ class Assets {
   static const String iconsIconThumbDownFill = 'assets/icons/icon-thumb-down-fill.png';
   static const String iconsIconThumbUp = 'assets/icons/icon-thumb-up.png';
   static const String iconsIconThumbUpFill = 'assets/icons/icon-thumb-up-fill.png';
-  static const String iconsIconThumnDown = 'assets/icons/icon-thumn-down.png';
+  static const String iconsIconThumnDown = 'assets/icons/icon-thumb-down.png';
   static const String iconsIconTrash = 'assets/icons/icon-trash.png';
   static const String imagesAppVazadoIcon = 'assets/images/app_vazado_icon.png';
   static const String imagesAppVazadoIcon.png = 'build/app/intermediates/compressed_assets/debug/out/assets/flutter_assets/assets/images/app_vazado_icon.png.jar';

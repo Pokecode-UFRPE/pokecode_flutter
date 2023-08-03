@@ -113,6 +113,7 @@ flutter:
     - assets/icons/icon-pokedex.png
     - assets/icons/icon-recommendation.png
     - assets/logotype/
+    - assets/icons/
     - assets/images/tipos/
     - assets/images/exemplo.png
 
