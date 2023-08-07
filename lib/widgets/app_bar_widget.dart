@@ -37,11 +37,28 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
           ),
-          Image.asset(
-            'assets/images/user_icon.png',
-            width: 40,
-          ),
+          const ProfileButton(),
         ],
+      ),
+    );
+  }
+}
+
+class ProfileButton extends StatelessWidget {
+  const ProfileButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 60,
+      height: 60, 
+      child: InkWell(
+        child: IconButton(
+          icon: Image.asset('assets/images/user_icon.png'),
+          onPressed: () {
+            Navigator.pushNamed(context, '/profile');
+          },
+        ),
       ),
     );
   }

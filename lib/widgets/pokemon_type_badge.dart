@@ -11,7 +11,6 @@ class PokemonTypeBadge extends StatelessWidget {
         type.replaceAll('[', '').replaceAll(']', '').toUpperCase();
 
     Color backgroundColor = _getColorForType(formattedType);
-    Color textColor = _getTextColorForBackground(backgroundColor);
 
     return Container(
       margin: const EdgeInsetsDirectional.only(end: 5),
@@ -51,7 +50,6 @@ class PokemonTypeBadge extends StatelessWidget {
       'DRAGON': Colors.indigo[700]!,
       'DARK': Colors.brown[900]!,
       'FAIRY': Colors.pink[100]!,
-      // Add more types and colors as needed
     };
 
     return typeColors[type.toUpperCase()] ?? Colors.deepOrange;

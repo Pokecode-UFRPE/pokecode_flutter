@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../services/db_firestore.dart';
 import '../widgets/app_bar_widget.dart';
 import '../widgets/bottom_navigation_bar_widget.dart';

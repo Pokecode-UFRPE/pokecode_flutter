@@ -3,9 +3,9 @@ import 'package:firebase_database/firebase_database.dart';
 // ignore: body_might_complete_normally_nullable
 Future<Pokemon?> getPokemon(int index) async {
   final ref = FirebaseDatabase.instance.ref();
-  final DataSnapshot snapshot = await ref.child('/$index').get();
+  final DataSnapshot snapshot = await ref.child('/pokemon/$index').get();
 
-  if (snapshot != null && snapshot.exists) {
+  if (snapshot.exists) {
     // Alteração aqui: mudança na ordem da verificação
     try {
       print(snapshot.value);
@@ -13,9 +13,9 @@ Future<Pokemon?> getPokemon(int index) async {
           snapshot.value as Map<dynamic, dynamic>; // Alteração aqui
       Map<String, dynamic>? json =
           map.cast<String, dynamic>(); // Alteração aqui: conversão explícita
-      print("=====================");
+      // print("=====================");
       if (json != null) {
-        print(json);
+        // print(json);
         Pokemon result = Pokemon.fromJson(json);
         return result;
       }
@@ -29,12 +29,9 @@ Future<Pokemon?> getPokemon(int index) async {
 class Pokemon {
   String name;
   String typing;
-
   // ignore: non_constant_identifier_names
   int pokedex_number;
-
   Pokemon(this.name, this.pokedex_number, this.typing);
-
   Pokemon.fromJson(Map<String, dynamic> json)
       : name = json['name'],
         typing = json['typing'],

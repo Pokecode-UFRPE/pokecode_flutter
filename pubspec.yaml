@@ -62,10 +62,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+
+    - assets/logotype/logo-down-white.png
     - assets/images/spinner_ball.gif
-    - assets/images/bag_icon.png
-    - assets/images/pokedex_icon.png
-    - assets/images/recomendacao_icon.png
     - assets/images/app_vazado_icon.png
     - assets/images/user_icon.png
     - assets/images/bg_recomendacoes/bug.jpg
@@ -87,24 +86,6 @@ flutter:
     - assets/images/bg_recomendacoes/steel.jpg
     - assets/images/bg_recomendacoes/water.jpg
     - assets/images/bg_recomendacoes/star.png
-    - assets/images/tipos/bug.png
-    - assets/images/tipos/dark.png
-    - assets/images/tipos/dragon.png
-    - assets/images/tipos/electric.png
-    - assets/images/tipos/fairy.png
-    - assets/images/tipos/fighting.png
-    - assets/images/tipos/fire.png
-    - assets/images/tipos/flying.png
-    - assets/images/tipos/ghost.png
-    - assets/images/tipos/grass.png
-    - assets/images/tipos/ground.png
-    - assets/images/tipos/ice.png
-    - assets/images/tipos/normal.png
-    - assets/images/tipos/poison.png
-    - assets/images/tipos/psychic.png
-    - assets/images/tipos/rock.png
-    - assets/images/tipos/steel.png
-    - assets/images/tipos/water.png
     - assets/icons/icon-bag.png
     - assets/icons/icon-pokeball.png
     - assets/icons/icon-pokeball-open.png
@@ -114,8 +95,6 @@ flutter:
     - assets/icons/icon-recommendation.png
     - assets/logotype/
     - assets/icons/
-    - assets/images/tipos/
-    - assets/images/exemplo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
