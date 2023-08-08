@@ -67,46 +67,49 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
             padding: const EdgeInsets.all(25.0),
             child: Column(
               children: [
-                Stack(
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(bottom: 40, top: 10),
-                      height: 300,
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(0, 248, 248, 248),
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.7),
-                            spreadRadius: 10,
-                            blurRadius: 10,
-                            blurStyle: BlurStyle.outer,
-                          ),
-                        ],
+                Container(
+                  margin: const EdgeInsets.only(bottom: 40, top: 10),
+                  height: 300,
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(0, 248, 248, 248),
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.7),
+                        spreadRadius: 10,
+                        blurRadius: 10,
+                        blurStyle: BlurStyle.outer,
                       ),
-                      child: Image.network(
-                        widget.link,
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.topRight,
-                      margin: const EdgeInsets.only(top: 10),
-                      height: 80,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: GestureDetector(
-                        onTap: () {
-                          changeCapturado();
-                        },
-                        child: Image.asset(
-                          widget.pokeball,
-                          // Coloque o caminho da imagem "pokeball" aqui
-                          alignment: Alignment.topRight,
+                    ],
+                  ),
+                  child: Stack(
+                    children: [
+                      Container(
+                        alignment: Alignment.center,
+                        child: Image.network(
+                          widget.link,
                         ),
                       ),
-                    ),
-                  ],
+                      Container(
+                        alignment: Alignment.topRight,
+                        margin: const EdgeInsets.only(top: 10),
+                        height: 80,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: GestureDetector(
+                          onTap: () {
+                            changeCapturado();
+                          },
+                          child: Image.asset(
+                            widget.pokeball,
+                            // Coloque o caminho da imagem "pokeball" aqui
+                            alignment: Alignment.topRight,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(bottom: 20),
@@ -218,20 +221,21 @@ class _PokeballToolsState extends State<PokeballTools> {
                   // Ação que será executada quando o botão for pressionado
                   favoritar();
                 },
-                child: Image.asset(
+                child: Icon(
                   widget.favorito
-                      ? 'assets/icons/icon-heart-fill.png'
-                      : 'assets/icons/icon-heart.png',
+                      ? Icons.favorite_sharp
+                      : Icons.favorite_border_sharp,
+                  color: widget.favorito ? Colors.red : null,
                 ),
               ),
               GestureDetector(
                 onTap: () {
                   gosto();
                 },
-                child: Image.asset(
+                child: Icon(
                   widget.gosto == 2
-                      ? 'assets/icons/icon-thumb-up-fill.png'
-                      : 'assets/icons/icon-thumb-up.png',
+                      ? Icons.thumb_up_alt_rounded
+                      : Icons.thumb_up_alt_outlined,
                   // Coloque o caminho da imagem "pokeball" aqui
                 ),
               ),
@@ -239,10 +243,10 @@ class _PokeballToolsState extends State<PokeballTools> {
                 onTap: () {
                   naoGosto();
                 },
-                child: Image.asset(
+                child: Icon(
                   widget.gosto == 3
-                      ? 'assets/icons/icon-thumb-down-fill.png'
-                      : 'assets/icons/icon-thumb-down.png',
+                      ? Icons.thumb_down_alt_rounded
+                      : Icons.thumb_down_alt_outlined,
                   // Coloque o caminho da imagem "pokeball" aqui
                 ),
               )

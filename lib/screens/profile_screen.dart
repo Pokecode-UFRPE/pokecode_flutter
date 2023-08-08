@@ -9,7 +9,7 @@ class ProfileScreen extends StatelessWidget {
       body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          color: Color.fromARGB(255, 236, 236, 236),
+          color: const Color.fromARGB(255, 236, 236, 236),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -26,10 +26,10 @@ class ProfileScreen extends StatelessWidget {
                         child: IconButton(
                           icon: const Icon(Icons.arrow_back,
                               color: Colors.white,
-                              size: 40), // Ícone de seta esquerda
+                              size: 40),
                           onPressed: () {
                             Navigator.pop(
-                                context); // Voltar para a tela anterior
+                                context);
                           },
                         ),
                       ),
