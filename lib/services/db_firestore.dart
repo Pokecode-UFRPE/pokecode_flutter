@@ -48,3 +48,51 @@ class Pokemon {
     return 'nome: $name, typing: $typing, pokedex number: $pokedex_number';
   }
 }
+
+Future<List<String>?> getTypes() async {
+  final ref = FirebaseDatabase.instance.ref();
+  final DataSnapshot snapshot = await ref.child('/typing/').get();
+
+  if (snapshot.exists) {
+    try {
+      List<dynamic> dataList = snapshot.value as List<dynamic>;
+      List<String> result = dataList.map((item) => item.toString()).toList();
+      return result;
+    } catch (e) {
+      print(e);
+    }
+  }
+  return null;
+}
+
+Future<List<String>?> getColors() async {
+  final ref = FirebaseDatabase.instance.ref();
+  final DataSnapshot snapshot = await ref.child('/primary_color/').get();
+
+  if (snapshot.exists) {
+    try {
+      List<dynamic> dataList = snapshot.value as List<dynamic>;
+      List<String> result = dataList.map((item) => item.toString()).toList();
+      return result;
+    } catch (e) {
+      print(e);
+    }
+  }
+  return null;
+}
+Future<List<String>?> getShapes() async {
+  final ref = FirebaseDatabase.instance.ref();
+  final DataSnapshot snapshot = await ref.child('/shape/').get();
+
+  if (snapshot.exists) {
+    try {
+      List<dynamic> dataList = snapshot.value as List<dynamic>;
+      List<String> result = dataList.map((item) => item.toString()).toList();
+      return result;
+    } catch (e) {
+      print(e);
+    }
+  }
+  return null;
+}
+

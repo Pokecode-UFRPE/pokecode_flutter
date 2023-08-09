@@ -3,23 +3,28 @@ import 'package:flutter/material.dart';
 import 'expanders_filters.dart';
 
 class PopupFilter extends StatelessWidget {
+  const PopupFilter({super.key});
+
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       contentPadding: EdgeInsets.zero,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(70.0),
-      ),
-      content: SizedBox(
-        width: MediaQuery.of(context).size.width - 20,
-        height: MediaQuery.of(context).size.height - 20,
-        
+      content: Container(
+        width: double.maxFinite,
+        height: double.maxFinite,
+
+        child: SingleChildScrollView(
           child: Column(
             children: [
               Container(
                 alignment: Alignment.center,
-                color: const Color(0xFFAACAFB),
-                height: 40,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(5),
+                      topRight: Radius.circular(5)),
+                  color: Color(0xFFAACAFB),
+                ),
+                height: 50,
                 child: const Text(
                   'Filtros',
                   style: TextStyle(
@@ -29,11 +34,14 @@ class PopupFilter extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 10), // Espaço entre o título e a lista
-              const ExpanderFilters(),
+              const SizedBox(height: 10),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: ExpanderFilters(),
+              ),
             ],
           ),
-        
+        ),
       ),
     );
   }

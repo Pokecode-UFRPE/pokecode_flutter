@@ -5,7 +5,6 @@ import 'package:pokecode/screens/cadastro_screen.dart';
 import 'package:pokecode/screens/esqueci_senha_screen.dart';
 import 'package:pokecode/screens/login_screen.dart';
 import 'package:pokecode/screens/profile_screen.dart';
-
 import 'firebase_options.dart';
 import 'screens/pokedex_screen.dart';
 import 'screens/recomendacao_screen.dart';

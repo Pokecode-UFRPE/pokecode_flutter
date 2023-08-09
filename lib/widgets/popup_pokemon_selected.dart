@@ -218,7 +218,6 @@ class _PokeballToolsState extends State<PokeballTools> {
             children: [
               GestureDetector(
                 onTap: () {
-                  // Ação que será executada quando o botão for pressionado
                   favoritar();
                 },
                 child: Icon(
@@ -236,7 +235,6 @@ class _PokeballToolsState extends State<PokeballTools> {
                   widget.gosto == 2
                       ? Icons.thumb_up_alt_rounded
                       : Icons.thumb_up_alt_outlined,
-                  // Coloque o caminho da imagem "pokeball" aqui
                 ),
               ),
               GestureDetector(
@@ -247,7 +245,6 @@ class _PokeballToolsState extends State<PokeballTools> {
                   widget.gosto == 3
                       ? Icons.thumb_down_alt_rounded
                       : Icons.thumb_down_alt_outlined,
-                  // Coloque o caminho da imagem "pokeball" aqui
                 ),
               )
             ],
