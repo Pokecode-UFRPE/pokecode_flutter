@@ -17,15 +17,23 @@ class CardPokemonHorizontalWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String link = '';
+
+    // Remover depois
+    if (pokemon!.name.contains('Gmax') || pokemon!.name.contains('Mega')) {
+      return SizedBox.shrink();
+    }
     if (pokemon!.pokedex_number < 10) {
       link =
-          'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/00${pokemon!.pokedex_number}.png';
+      'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/00${pokemon!
+          .pokedex_number}.png';
     } else if (pokemon!.pokedex_number < 100) {
       link =
-          'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/0${pokemon!.pokedex_number}.png';
+      'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/0${pokemon!
+          .pokedex_number}.png';
     } else {
       link =
-          'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${pokemon!.pokedex_number}.png';
+      'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${pokemon!
+          .pokedex_number}.png';
     }
     List<String> tipos = pokemon!.typing.split("~");
 
@@ -41,8 +49,14 @@ class CardPokemonHorizontalWidget extends StatelessWidget {
           ),
           child: InkWell(
             child: SizedBox(
-              width: MediaQuery.of(context).size.width / 1,
-              height: MediaQuery.of(context).size.width / 3.5,
+              width: MediaQuery
+                  .of(context)
+                  .size
+                  .width / 1,
+              height: MediaQuery
+                  .of(context)
+                  .size
+                  .width / 3.5,
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: Row(
@@ -53,7 +67,8 @@ class CardPokemonHorizontalWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '#${pokemon!.pokedex_number.toString().padLeft(4, '0')}',
+                            '#${pokemon!.pokedex_number.toString().padLeft(
+                                4, '0')}',
                             style: TextStyle(
                               fontSize: 14,
                               color: Colors.grey.shade500,
@@ -64,7 +79,7 @@ class CardPokemonHorizontalWidget extends StatelessWidget {
                           Text(
                             pokemon!.name,
                             style: const TextStyle(
-                              fontSize: 18,
+                              fontSize: 14,
                               color: Colors.black,
                               fontWeight: FontWeight.w700,
                               fontFamily: 'PressStart2P',
@@ -84,7 +99,10 @@ class CardPokemonHorizontalWidget extends StatelessWidget {
                     CircleAvatar(
                       backgroundColor: Colors.white,
                       foregroundColor: const Color.fromARGB(255, 255, 191, 0),
-                      radius: MediaQuery.of(context).size.width / 6,
+                      radius: MediaQuery
+                          .of(context)
+                          .size
+                          .width / 6,
                       child: ClipOval(
                         child: Image.network(
                           link,
