@@ -6,16 +6,12 @@ Future<Pokemon?> getPokemon(int index) async {
   final DataSnapshot snapshot = await ref.child('/pokemon/$index').get();
 
   if (snapshot.exists) {
-    // Alteração aqui: mudança na ordem da verificação
     try {
-      print(snapshot.value);
       Map<dynamic, dynamic> map =
-          snapshot.value as Map<dynamic, dynamic>; // Alteração aqui
+          snapshot.value as Map<dynamic, dynamic>;
       Map<String, dynamic>? json =
-          map.cast<String, dynamic>(); // Alteração aqui: conversão explícita
-      // print("=====================");
+          map.cast<String, dynamic>();
       if (json != null) {
-        // print(json);
         Pokemon result = Pokemon.fromJson(json);
         return result;
       }
@@ -73,6 +69,7 @@ Future<List<String>?> getColors() async {
     try {
       List<dynamic> dataList = snapshot.value as List<dynamic>;
       List<String> result = dataList.map((item) => item.toString()).toList();
+      // print(result);
       return result;
     } catch (e) {
       print(e);
@@ -80,6 +77,7 @@ Future<List<String>?> getColors() async {
   }
   return null;
 }
+
 Future<List<String>?> getShapes() async {
   final ref = FirebaseDatabase.instance.ref();
   final DataSnapshot snapshot = await ref.child('/shape/').get();

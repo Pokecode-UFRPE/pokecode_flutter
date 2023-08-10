@@ -10,19 +10,26 @@ class PokedexScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const MyAppBar(currentIndex: 0),
+      appBar: MyAppBar(currentIndex: 0),
       body:
           // Column(children: [constructorCard(4)],),
-          ListView.builder(
-              itemCount: 899,
-              itemBuilder: (context, index) {
-                return constructorCard(index + 1);
-              }),
+          padrao(),
       bottomNavigationBar: BottomNavigationBarWidget(
         currentIndex: 1,
       ),
     );
   }
+}
+
+
+
+Widget padrao() {
+  return ListView.builder(
+    itemCount: 899,
+    itemBuilder: (context, index) {
+      return constructorCard(index + 1);
+    },
+  );
 }
 
 constructorCard(int index) {

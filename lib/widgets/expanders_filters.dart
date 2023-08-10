@@ -172,9 +172,9 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
     return GridView.builder(
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
-        childAspectRatio: 2,
-        mainAxisSpacing: 10,
+        crossAxisCount: 7,
+        childAspectRatio: 0.8,
+        // mainAxisSpacing: 10,
         crossAxisSpacing: 10,
       ),
       itemCount: _shapesIndices!.length,
@@ -184,7 +184,20 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
           onTap: () {},
           child: Container(
               alignment: Alignment.center,
-              child: Image.asset('assets/images/shapes/$shape.webp')),
+              child: Column(
+                children: [
+                  Image.asset('assets/images/shapes/$shape.webp'),
+                  Text(
+                    shape.toString(),
+                    style: const TextStyle(
+                      fontSize: 8.0,
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.italic,
+                      color: Color.fromARGB(255, 80, 77, 77),
+                    ),
+                  )
+                ],
+              )),
         );
       },
     );
@@ -237,8 +250,13 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
         return InkWell(
           onTap: () {},
           child: Center(
-            child: Column(children: [getRaridadeIcon(raridade), SizedBox(height: 10),Text(raridade)],)
-          ),
+              child: Column(
+            children: [
+              getRaridadeIcon(raridade),
+              SizedBox(height: 10),
+              Text(raridade)
+            ],
+          )),
         );
       },
     );

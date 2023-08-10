@@ -4,7 +4,7 @@ import 'package:pokecode/widgets/popup_filters.dart';
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final int currentIndex;
 
-  const MyAppBar({required this.currentIndex});
+  MyAppBar({required this.currentIndex});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -37,6 +37,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                         borderRadius: BorderRadius.circular(50),
                       ),
                     ),
+                    // onChanged: ,
                   ),
                 ),
                 Container(
