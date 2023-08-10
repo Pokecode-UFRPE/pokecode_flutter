@@ -14,7 +14,7 @@ class RecomendacaoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  MyAppBar(currentIndex: 0),
+      // appBar:  MyAppBar(currentIndex: 0),
       body: SingleChildScrollView(
         child: Column(
           children: [

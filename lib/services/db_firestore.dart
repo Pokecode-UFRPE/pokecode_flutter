@@ -94,3 +94,30 @@ Future<List<String>?> getShapes() async {
   return null;
 }
 
+Future<List<Pokemon>> getPokemonsInput(String name) async {
+  final ref = FirebaseDatabase.instance.ref().child('pokemon');
+  Query query = ref.orderByChild('name').startAt(name).endAt("$name\uf8ff");
+  DataSnapshot snapshot = (await query.once()).snapshot;
+  List<Pokemon> resultList = [];
+
+  if (snapshot.exists) {
+    try {
+      Map<dynamic, dynamic> map = snapshot.value as Map<dynamic, dynamic>;
+      Map<String, dynamic>? json = map.cast<String, dynamic>();
+      print(map);
+      if (json != null) {
+        if (map is Map) {
+          map.forEach((key, value) {
+            if (value is Map<String, dynamic>) {
+              Pokemon result = Pokemon.fromJson(value);
+              resultList.add(result);
+            }
+          });
+        }
+      }
+    } catch (error) {
+      print("Error: $error");
+    }
+  }
+  return resultList;
+}

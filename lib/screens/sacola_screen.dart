@@ -6,7 +6,7 @@ class SacolaScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(currentIndex: 0),
+      // appBar: MyAppBar(currentIndex: 0),
       body: Container(
         // Seu conteúdo do corpo aqui...
       ),
