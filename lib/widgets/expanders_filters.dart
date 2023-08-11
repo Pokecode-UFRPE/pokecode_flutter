@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokecode/widgets/pokemon_type_badge.dart';
+import '../screens/pokedex_screen.dart';
 import '../services/db_firestore.dart';
 
 class ExpanderFilters extends StatefulWidget {
@@ -118,7 +119,9 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
       itemBuilder: (context, index) {
         final tipo = _tipoIndices![index];
         return InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.pop(context, ['typing', tipo]);
+          },
           child: Container(
             alignment: Alignment.center,
             child: PokemonTypeBadge(type: tipo),

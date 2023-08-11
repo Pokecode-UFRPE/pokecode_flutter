@@ -4,9 +4,11 @@ import 'package:pokecode/widgets/popup_filters.dart';
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   final int currentIndex;
   final String valorInput;
+  final List filtroEValorAppBar;
   final ValueChanged<String> onInputChanged;
+  final ValueChanged<List> onPopupChanged;
 
-  MyAppBar({required this.currentIndex, required this.valorInput, required this.onInputChanged});
+  MyAppBar({required this.currentIndex, required this.valorInput, required this.onInputChanged, required this.onPopupChanged, required this.filtroEValorAppBar});
 
   @override
   _MyAppBarState createState() => _MyAppBarState();
@@ -17,11 +19,13 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
 
 class _MyAppBarState extends State<MyAppBar> {
   late TextEditingController _controller;
+  late List _aux;
 
   @override
   void initState() {
     super.initState();
     _controller = TextEditingController(text: widget.valorInput);
+    _aux = List.from(widget.filtroEValorAppBar); // Copiar os elementos da lista
   }
 
   @override
@@ -70,13 +74,19 @@ class _MyAppBarState extends State<MyAppBar> {
                 Container(
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
-                    onPressed: () {
-                      showDialog(
+                    onPressed: () async {
+                      final filtroEValorNovo = await showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return PopupFilter();
                         },
                       );
+                      if (filtroEValorNovo != null) {
+                        setState(() {
+                          _aux = filtroEValorNovo;
+                        });
+                      }
+                      widget.onPopupChanged(filtroEValorNovo);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,
