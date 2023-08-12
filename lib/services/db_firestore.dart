@@ -124,7 +124,7 @@ Future<List<Pokemon>> getPokemonsInput(String name) async {
 
 Future<List<Pokemon>> getPokemonsFiltroString(String aux, String tipoDeBusca) async {
   final ref = FirebaseDatabase.instance.ref().child('pokemon');
-  Query query = ref.orderByChild('$tipoDeBusca').startAt(aux).endAt("$aux\uf8ff");
+  Query query = ref.orderByChild(tipoDeBusca).startAt(aux).endAt(aux + "\uf8ff");
   DataSnapshot snapshot = (await query.once()).snapshot;
   List<Pokemon> resultList = [];
 
@@ -132,7 +132,6 @@ Future<List<Pokemon>> getPokemonsFiltroString(String aux, String tipoDeBusca) as
     try {
       Map<dynamic, dynamic> map = snapshot.value as Map<dynamic, dynamic>;
       Map<String, dynamic>? json = map.cast<String, dynamic>();
-      // print(map);
       if (json != null) {
         if (map is Map) {
           map.forEach((key, value) {

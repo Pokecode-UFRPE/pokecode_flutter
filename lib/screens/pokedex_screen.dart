@@ -13,9 +13,6 @@ class PokedexScreen extends StatefulWidget {
 class _PokedexScreenState extends State<PokedexScreen> {
   String _valorInput = "";
   List _filtroEValor = ['',''];
-  // int _valorGeracao = 0;
-  // String _valorFormato = "";
-  // String _valorCor = "";
 
   @override
   Widget build(BuildContext context) {
@@ -45,12 +42,6 @@ class _PokedexScreenState extends State<PokedexScreen> {
   Widget selecaoWidget() {
     if (_filtroEValor[0].isNotEmpty) {
       return pokeFiltroString(_filtroEValor[1], _filtroEValor[0]);
-    // } else if (_valorGeracao != null) {
-    //   pokeFiltroString(_valorGeracao);
-    // } else if (_valorFormato.isNotEmpty) {
-    //   return pokeFiltroString(_valorFormato, 'shape');
-    // } else if (_valorCor.isNotEmpty) {
-    //   return pokeFiltroString(_valorCor, 'primary-color');
     } else {
       if (_valorInput.isNotEmpty) {
         return pokeInput(_valorInput);

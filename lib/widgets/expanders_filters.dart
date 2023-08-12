@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pokecode/widgets/pokemon_type_badge.dart';
-import '../screens/pokedex_screen.dart';
 import '../services/db_firestore.dart';
 
 class ExpanderFilters extends StatefulWidget {
@@ -142,9 +141,11 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
       ),
       itemCount: 8,
       itemBuilder: (context, index) {
-        final seasonNumber = index + 1;
+        final geracao = index + 1;
         return InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.pop(context, ['gen_introduced', geracao.toString()]);
+          },
           child: Container(
             alignment: Alignment.center,
             decoration: const BoxDecoration(
@@ -152,7 +153,7 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
               shape: BoxShape.circle, // Define a forma como círculo
             ),
             child: Text(
-              '$seasonNumberª',
+              '$geracaoª',
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 16,
@@ -184,7 +185,9 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
       itemBuilder: (context, index) {
         final shape = _shapesIndices![index];
         return InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.pop(context, ['shape', shape]);
+          },
           child: Container(
               alignment: Alignment.center,
               child: Column(
@@ -225,7 +228,9 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
       itemBuilder: (context, index) {
         final cor = _colorIndices![index];
         return InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.pop(context, ['primary_color', cor]);
+          },
           child: Container(
             alignment: Alignment.center,
             decoration: BoxDecoration(

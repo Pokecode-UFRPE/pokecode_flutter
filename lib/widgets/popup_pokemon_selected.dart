@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:pokecode/widgets/pokemon_type_badge.dart';
 
+// ignore: must_be_immutable
 class PopupPokemonSelected extends StatefulWidget {
   final String name;
+  // ignore: non_constant_identifier_names
   final int number_pokedex;
   final List<String> types;
   bool capturado;
   String pokeball;
   final String link;
 
-  PopupPokemonSelected({
+  PopupPokemonSelected({super.key, 
     required this.name,
+    // ignore: non_constant_identifier_names
     required this.number_pokedex,
     required this.types,
     required this.capturado,
@@ -20,6 +23,7 @@ class PopupPokemonSelected extends StatefulWidget {
             : 'assets/icons/icon-pokeball-white.png';
 
   @override
+  // ignore: library_private_types_in_public_api
   _PopupPokemonSelectedState createState() => _PopupPokemonSelectedState();
 }
 
@@ -149,19 +153,21 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
   }
 }
 
+// ignore: must_be_immutable
 class PokeballTools extends StatefulWidget {
   bool capturado;
   bool favorito = false;
   int gosto = 0;
   String pokeball;
 
-  PokeballTools({
+  PokeballTools({super.key, 
     required this.capturado,
   }) : pokeball = capturado
             ? 'assets/icons/icon-pokeball.png'
             : 'assets/icons/icon-pokeball-white.png';
 
   @override
+  // ignore: library_private_types_in_public_api
   _PokeballToolsState createState() => _PokeballToolsState();
 }
 
