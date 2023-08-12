@@ -5,14 +5,13 @@ import '../widgets/bottom_navigation_bar_widget.dart';
 import '../widgets/card_pokemon_horizontal.dart';
 
 class PokedexScreen extends StatefulWidget {
-
   @override
   _PokedexScreenState createState() => _PokedexScreenState();
 }
 
 class _PokedexScreenState extends State<PokedexScreen> {
   String _valorInput = "";
-  List _filtroEValor = ['',''];
+  List _filtroEValor = ['', ''];
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +31,7 @@ class _PokedexScreenState extends State<PokedexScreen> {
           });
         },
       ),
-      body: selecaoWidget(),
+      body: Stack(children: [selecaoWidget(), closeFilter()]),
       bottomNavigationBar: BottomNavigationBarWidget(
         currentIndex: 1,
       ),
@@ -145,5 +144,26 @@ class _PokedexScreenState extends State<PokedexScreen> {
         }
       },
     );
+  }
+
+  Widget closeFilter() {
+    return (_valorInput.isNotEmpty || _filtroEValor[0].isNotEmpty)
+        ? Positioned(
+          bottom: 0,
+          right: 0,
+          child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: FloatingActionButton(
+                onPressed: () {
+                  setState(() {
+                    _valorInput = '';
+                    _filtroEValor = ['', ''];
+                  });
+                },backgroundColor: Colors.black,
+                child: const Icon(Icons.search_off),
+              ),
+            ),
+        )
+        : const SizedBox.shrink();
   }
 }

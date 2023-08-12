@@ -256,12 +256,14 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
       itemBuilder: (context, index) {
         final raridade = raridades[index];
         return InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.pop(context, ['raridade', raridade.toString()]);
+          },
           child: Center(
               child: Column(
             children: [
               getRaridadeIcon(raridade),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Text(raridade)
             ],
           )),
