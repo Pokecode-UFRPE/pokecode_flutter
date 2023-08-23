@@ -14,15 +14,15 @@ class CardSimplesRecomendacaoWidget extends StatelessWidget {
   // corrigindo o valor do nº da pokedex para chamar a imagem corretamente
   Widget build(BuildContext context) {
     String link = '';
-    if (pokemon!.pokedex_number < 10) {
+    if (pokemon!.pokedexNumber < 10) {
       link =
-          'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/00${pokemon!.pokedex_number}.png';
-    } else if ((pokemon!.pokedex_number < 100)) {
+          'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/00${pokemon!.pokedexNumber}.png';
+    } else if ((pokemon!.pokedexNumber < 100)) {
       link =
-          'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/0${pokemon!.pokedex_number}.png';
+          'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/0${pokemon!.pokedexNumber}.png';
     } else {
       link =
-          'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${pokemon!.pokedex_number}.png';
+          'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${pokemon!.pokedexNumber}.png';
     }
     List<String> tipos = pokemon!.typing.split("~");
 
@@ -57,11 +57,11 @@ class CardSimplesRecomendacaoWidget extends StatelessWidget {
                     context: context,
                     builder: (BuildContext context) {
                       return PopupPokemonSelected(
-                          name: pokemon!.name,
-                          number_pokedex: pokemon!.pokedex_number,
                           types: tipos,
                           capturado: true,
-                          link: link);
+                          link: link,
+                          pokemonz: pokemon!,
+                      );
                     },
                   );
                 },

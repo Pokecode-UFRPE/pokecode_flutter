@@ -1,13 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:pokecode/widgets/popup_filters.dart';
 
-class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
+class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   final int currentIndex;
+  final String valorInput;
+  final List filtroEValorAppBar;
+  final ValueChanged<String> onInputChanged;
+  final ValueChanged<List> onPopupChanged;
 
-  MyAppBar({required this.currentIndex});
+  MyAppBar({required this.currentIndex, required this.valorInput, required this.onInputChanged, required this.onPopupChanged, required this.filtroEValorAppBar});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _MyAppBarState createState() => _MyAppBarState();
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+class _MyAppBarState extends State<MyAppBar> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.valorInput);
+// Copiar os elementos da lista
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +54,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                   ),
                   height: 40,
                   child: TextField(
+                    controller: _controller,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: const Color.fromARGB(255, 255, 255, 255),
@@ -37,19 +63,29 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                         borderRadius: BorderRadius.circular(50),
                       ),
                     ),
-                    // onChanged: ,
+                    onSubmitted: (newValue) {
+                      setState(() {
+                        _controller.text = newValue;
+                      });
+                      widget.onInputChanged(newValue);
+                    },
                   ),
                 ),
                 Container(
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
-                    onPressed: () {
-                      showDialog(
+                    onPressed: () async {
+                      final filtroEValorNovo = await showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return PopupFilter(); 
+                          return PopupFilter();
                         },
                       );
+                      if (filtroEValorNovo != null) {
+                        setState(() {
+                        });
+                      }
+                      widget.onPopupChanged(filtroEValorNovo);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,
