@@ -19,7 +19,7 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
   List<String>? _tipoIndices;
   List<String>? _colorIndices;
   List<String>? _shapesIndices;
-  List<String> raridades = ['baby_pokemon', 'legendary', 'mythical'];
+  List<String> raridades = ['baby', 'legendary', 'mythical'];
 
   @override
   void initState() {
@@ -291,7 +291,7 @@ Color getCorFromNome(String nomeCor) {
 
 Icon getRaridadeIcon(String nomeIcon) {
   Map<String, IconData> img = {
-    "baby_pokemon": Icons.cake,
+    "baby": Icons.cake,
     "legendary": Icons.auto_awesome_sharp,
     "mythical": Icons.diamond_rounded,
   };

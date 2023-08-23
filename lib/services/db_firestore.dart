@@ -7,12 +7,11 @@ Future<Pokemon?> getPokemon(int index) async {
 
   if (snapshot.exists) {
     try {
-      Map<dynamic, dynamic> map =
-          snapshot.value as Map<dynamic, dynamic>;
-      Map<String, dynamic>? json =
-          map.cast<String, dynamic>();
+      Map<dynamic, dynamic> map = snapshot.value as Map<dynamic, dynamic>;
+      Map<String, dynamic>? json = map.cast<String, dynamic>();
       if (json != null) {
         Pokemon result = Pokemon.fromJson(json);
+        print(result);
         return result;
       }
     } catch (e) {
@@ -24,25 +23,59 @@ Future<Pokemon?> getPokemon(int index) async {
 
 class Pokemon {
   String name;
+  int pokedexNumber;
+  String genIntroduced;
+  String primaryColor;
+  String shape;
   String typing;
-  // ignore: non_constant_identifier_names
-  int pokedex_number;
-  Pokemon(this.name, this.pokedex_number, this.typing);
+  double height;
+  double weight;
+  int hp;
+  int attack;
+  int defense;
+  int speed;
+  int baseExperience;
+  bool canEvolve;
+  String raridade;
+
+  Pokemon(
+      this.name, this.pokedexNumber, this.genIntroduced, this.primaryColor, this.shape, this.typing, this.height, this.weight, this.hp, this.attack, this.defense,
+      this.speed, this.baseExperience, this.canEvolve, this.raridade);
+
   Pokemon.fromJson(Map<String, dynamic> json)
       : name = json['name'],
+        pokedexNumber = json['pokedex_number'],
+        genIntroduced = json['gen_introduced'],
+        primaryColor = json['primary_color'],
+        shape = json['shape'],
         typing = json['typing'],
-        pokedex_number = json['pokedex_number'];
+        height = json['height'],
+        weight = json['weight'],
+        hp = json['hp'],
+        attack = json['attack'],
+        defense = json['defense'],
+        speed = json['speed'],
+        baseExperience = json['base_experience'],
+        canEvolve = json['can_evolve'],
+        raridade = json['raridade'];
 
   Map<String, dynamic> toJson() => {
         'name': name,
+        'pokedex_number': pokedexNumber,
+        'gen_introduced': genIntroduced,
+        'primary_color': primaryColor,
+        'shape': shape,
         'typing': typing,
-        'pokedex_number': pokedex_number,
+        'height': height,
+        'weight': weight,
+        'hp': hp,
+        'attack': attack,
+        'defense': defense,
+        'speed': speed,
+        'base_experience': baseExperience,
+        'can_evolve': canEvolve,
+        'raridade': raridade,
       };
-
-  @override
-  String toString() {
-    return 'nome: $name, typing: $typing, pokedex number: $pokedex_number';
-  }
 }
 
 Future<List<String>?> getTypes() async {
@@ -122,9 +155,11 @@ Future<List<Pokemon>> getPokemonsInput(String name) async {
   return resultList;
 }
 
-Future<List<Pokemon>> getPokemonsFiltroString(String aux, String tipoDeBusca) async {
+Future<List<Pokemon>> getPokemonsFiltroString(
+    String aux, String tipoDeBusca) async {
   final ref = FirebaseDatabase.instance.ref().child('pokemon');
-  Query query = ref.orderByChild(tipoDeBusca).startAt(aux).endAt(aux + "\uf8ff");
+  Query query =
+      ref.orderByChild(tipoDeBusca).startAt(aux).endAt(aux + "\uf8ff");
   DataSnapshot snapshot = (await query.once()).snapshot;
   List<Pokemon> resultList = [];
 
