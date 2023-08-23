@@ -7,14 +7,10 @@ Future<Pokemon?> getPokemon(int index) async {
 
   if (snapshot.exists) {
     try {
-      Map<dynamic, dynamic> map =
-          snapshot.value as Map<dynamic, dynamic>;
-      Map<String, dynamic>? json =
-          map.cast<String, dynamic>();
-      if (json != null) {
-        Pokemon result = Pokemon.fromJson(json);
-        return result;
-      }
+      Map<dynamic, dynamic> map = snapshot.value as Map<dynamic, dynamic>;
+      Map<String, dynamic>? json = map.cast<String, dynamic>();
+      Pokemon result = Pokemon.fromJson(json);
+      return result;
     } catch (e) {
       print(e);
     }
@@ -25,9 +21,16 @@ Future<Pokemon?> getPokemon(int index) async {
 class Pokemon {
   String name;
   String typing;
+
   // ignore: non_constant_identifier_names
   int pokedex_number;
+
   Pokemon(this.name, this.pokedex_number, this.typing);
+
+  List<String> tipos() {
+    return typing.split("~");
+  }
+
   Pokemon.fromJson(Map<String, dynamic> json)
       : name = json['name'],
         typing = json['typing'],
@@ -93,4 +96,3 @@ Future<List<String>?> getShapes() async {
   }
   return null;
 }
-

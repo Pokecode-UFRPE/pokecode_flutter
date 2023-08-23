@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 class PokemonTypeBadge extends StatelessWidget {
   final String type;
+  final bool small;
 
-  const PokemonTypeBadge({Key? key, required this.type}) : super(key: key);
+  const PokemonTypeBadge({Key? key, required this.type, this.small = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +16,8 @@ class PokemonTypeBadge extends StatelessWidget {
 
     return Container(
       margin: const EdgeInsetsDirectional.only(end: 5),
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
-      width: 80,
+      padding: EdgeInsets.symmetric(vertical: 5, horizontal: small ? 2 : 12),
+      width: small ? 60 : 80,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: backgroundColor,
@@ -23,9 +25,9 @@ class PokemonTypeBadge extends StatelessWidget {
       ),
       child: Text(
         formattedType,
-        style: const TextStyle(
+        style: TextStyle(
           color: Colors.white,
-          fontSize: 12,
+          fontSize: small ? 10 : 12,
           fontWeight: FontWeight.bold,
         ),
       ),

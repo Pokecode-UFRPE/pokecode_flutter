@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokecode/widgets/pokemon_type_badge.dart';
 
-import '../models/Pokemon.dart';
+import '../models/PokemonModel.dart';
 import '../repository/PokemonRepository.dart';
 
 class PopupPokemonSelected extends StatefulWidget {
@@ -64,12 +64,24 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
           ? 'assets/icons/icon-pokeball.png'
           : 'assets/icons/icon-pokeball-white.png';
     });
-    Pokemon? pokemon = await pokemonRepository.findById(id);
+    PokemonModel? pokemon = await pokemonRepository.findById(id);
     if (pokemon != null) {
-      pokemon = Pokemon(favorito: widget.capturado, capturado: true, id: id);
+      pokemon = PokemonModel(
+          name: widget.name,
+          types: widget.types,
+          image: widget.link,
+          favorito: pokemon.favorito,
+          capturado: widget.capturado,
+          id: id);
       PokemonRepository().updatePokemon(pokemon);
     } else {
-      pokemon = Pokemon(favorito: widget.capturado, capturado: true, id: id);
+      pokemon = PokemonModel(
+          name: widget.name,
+          types: widget.types,
+          image: widget.link,
+          favorito: favorito,
+          capturado: widget.capturado,
+          id: id);
       PokemonRepository().adicionarPokemon(pokemon);
     }
     try {
@@ -191,6 +203,9 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                         ),
                       ),
                       PokeballTools(
+                        types: widget.types,
+                        name: widget.name,
+                        image: widget.link,
                         capturado: widget.capturado,
                         favorito: favorito,
                         id: id,
@@ -208,10 +223,16 @@ class PokeballTools extends StatefulWidget {
   final bool capturado;
   bool favorito;
   String pokeball;
+  String name;
+  List<String> types;
+  String image;
   final String id;
 
   PokeballTools({
     required this.capturado,
+    required this.types,
+    required this.name,
+    required this.image,
     required this.id,
     required this.favorito,
   }) : pokeball = capturado
@@ -231,13 +252,19 @@ class _PokeballToolsState extends State<PokeballTools> {
     });
     pokemonRepository.findById(widget.id).then((pokemon) {
       if (pokemon != null) {
-        pokemon = Pokemon(
+        pokemon = PokemonModel(
+            image: pokemon.image,
+            types: widget.types,
+            name: pokemon.name,
             favorito: widget.favorito,
             capturado: widget.capturado,
             id: widget.id);
         PokemonRepository().updatePokemon(pokemon);
       } else {
-        pokemon = Pokemon(
+        pokemon = PokemonModel(
+            image: widget.image,
+            types: widget.types,
+            name: widget.name,
             favorito: widget.favorito,
             capturado: widget.capturado,
             id: widget.id);
