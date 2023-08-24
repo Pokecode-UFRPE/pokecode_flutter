@@ -1,15 +1,27 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:pokecode/widgets/app_bar_widget.dart';
-
 import '../services/db_firestore.dart';
 import '../widgets/bottom_navigation_bar_widget.dart';
 import '../widgets/card_recomendacao_widget.dart';
 import '../widgets/card_simples_recomendacao_widget.dart';
 
-class RecomendacaoScreen extends StatelessWidget {
-  const RecomendacaoScreen({Key? key});
+class RecomendacaoScreen extends StatefulWidget {
+  const RecomendacaoScreen({Key? key}) : super(key: key);
+
+  @override
+  _RecomendacaoScreenState createState() => _RecomendacaoScreenState();
+}
+
+class _RecomendacaoScreenState extends State<RecomendacaoScreen> {
+  late List<int> cardList;
+  late int star;
+
+  @override
+  void initState() {
+    super.initState();
+    cardList = generateRandomNumbers(22);
+    star = cardList.removeAt(0);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,21 +31,18 @@ class RecomendacaoScreen extends StatelessWidget {
         child: Column(
           children: [
             Row(
-              children: [constructorStarCard(4)],
+              children: [constructorStarCard(star)],
             ),
-            Row(
-              children: [
-                constructorComonCard(randomize()),
-                constructorComonCard(randomize()),
-                constructorComonCard(randomize())
-              ],
-            ),
-            Row(
-              children: [
-                constructorComonCard(randomize()),
-                constructorComonCard(randomize()),
-                constructorComonCard(randomize())
-              ],
+            GridView.builder(
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: 0.6,
+                  ),
+              itemCount: cardList.length,
+              itemBuilder: (BuildContext context, int index) {
+                return constructorComonCard(cardList[index]);
+              },
             ),
           ],
         ),
@@ -50,7 +59,7 @@ constructorStarCard(int index) {
     future: getPokemon(index),
     builder: (context, snapshot) {
       if (snapshot.connectionState == ConnectionState.waiting) {
-        return CircularProgressIndicator();
+        return const CircularProgressIndicator();
       } else if (snapshot.hasError) {
         return Text('Error: ${snapshot.error}');
       } else {
@@ -80,8 +89,14 @@ constructorComonCard(int index) {
   );
 }
 
-randomize() {
+List<int> generateRandomNumbers(int count) {
+  List<int> randomNumbers = [];
   Random random = Random();
-  int randomNumber = random.nextInt(898);
-  return randomNumber;
+
+  for (int i = 0; i < count; i++) {
+    int randomNumber = random.nextInt(600);
+    randomNumbers.add(randomNumber);
+  }
+
+  return randomNumbers;
 }
