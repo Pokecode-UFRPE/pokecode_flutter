@@ -155,8 +155,8 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                         Column(
                           children: [
                             Image.asset(
-                              'assets/icons/potion.png',
-                              scale: 9,
+                              'assets/icons/color.png',
+                              scale: 10,
                             ),
                             const SizedBox(
                               height: 5,
@@ -170,8 +170,8 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                         Column(
                           children: [
                             Image.asset(
-                              'assets/icons/potion.png',
-                              scale: 9,
+                              'assets/icons/height.png',
+                              scale: 10,
                             ),
                             const SizedBox(
                               height: 5,
@@ -185,8 +185,8 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                         Column(
                           children: [
                             Image.asset(
-                              'assets/icons/potion.png',
-                              scale: 9,
+                              'assets/icons/weight.png',
+                              scale: 10,
                             ),
                             const SizedBox(
                               height: 5,
@@ -201,7 +201,7 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                         Column(
                           children: [
                             Image.asset(
-                              'assets/images/shapes/${widget.pokemonz.shape}.webp',
+                              'assets/images/shapes/${widget.pokemonz.shape}.webp', scale: 1.2,
                             ),
                             const SizedBox(
                               height: 5,
@@ -216,8 +216,8 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'assets/icons/icon-espada.png',
-                          scale: 9,
+                          'assets/icons/hp.png',
+                          scale: 12,
                         ),
                         const SizedBox(
                           width: 10,
@@ -250,8 +250,8 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'assets/icons/icon-espada.png',
-                          scale: 9,
+                          'assets/icons/attack.png',
+                          scale: 12,
                         ),
                         const SizedBox(
                           width: 10,
@@ -284,8 +284,8 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'assets/icons/icon-espada.png',
-                          scale: 9,
+                          'assets/icons/defense.png',
+                          scale: 12,
                         ),
                         const SizedBox(
                           width: 10,
@@ -318,8 +318,8 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'assets/icons/icon-espada.png',
-                          scale: 9,
+                          'assets/icons/speed.png',
+                          scale: 12,
                         ),
                         const SizedBox(
                           width: 10,
