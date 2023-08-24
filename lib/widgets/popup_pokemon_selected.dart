@@ -75,11 +75,11 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                   margin: const EdgeInsets.only(bottom: 40, top: 10),
                   height: 300,
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(0, 248, 248, 248),
+                    color: Color.fromARGB(255, 248, 248, 248),
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.grey.withOpacity(0.7),
+                        color: const Color.fromARGB(255, 212, 200, 200).withOpacity(0.7),
                         spreadRadius: 10,
                         blurRadius: 10,
                         blurStyle: BlurStyle.outer,
@@ -156,12 +156,12 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                           children: [
                             Image.asset(
                               'assets/icons/color.png',
-                              scale: 10,
+                              scale: 1.9,
                             ),
                             const SizedBox(
                               height: 5,
                             ),
-                            Text(widget.pokemonz.primaryColor)
+                            Text(widget.pokemonz.primaryColor, textScaleFactor: 0.8,)
                           ],
                         ),
                         const SizedBox(
@@ -171,12 +171,12 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                           children: [
                             Image.asset(
                               'assets/icons/height.png',
-                              scale: 10,
+                              scale: 1.9,
                             ),
                             const SizedBox(
                               height: 5,
                             ),
-                            Text('${(widget.pokemonz.height / 10).toString()}m')
+                            Text('${(widget.pokemonz.height / 10).toString()}m', textScaleFactor: 0.8,)
                           ],
                         ),
                         const SizedBox(
@@ -186,13 +186,13 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                           children: [
                             Image.asset(
                               'assets/icons/weight.png',
-                              scale: 10,
+                              scale: 1.9,
                             ),
                             const SizedBox(
                               height: 5,
                             ),
                             Text(
-                                '${(widget.pokemonz.weight / 10).toString()}Kg')
+                                '${(widget.pokemonz.weight / 10).toString()}Kg', textScaleFactor: 0.8,)
                           ],
                         ),
                         const SizedBox(
@@ -201,12 +201,13 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                         Column(
                           children: [
                             Image.asset(
-                              'assets/images/shapes/${widget.pokemonz.shape}.webp', scale: 1.2,
+                              'assets/images/shapes/${widget.pokemonz.shape}.webp', 
+                              scale: 1.6,
                             ),
                             const SizedBox(
                               height: 5,
                             ),
-                            Text(widget.pokemonz.shape)
+                            Text(widget.pokemonz.shape, textScaleFactor: 0.8,)
                           ],
                         ),
                       ],
@@ -217,7 +218,6 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                       children: [
                         Image.asset(
                           'assets/icons/hp.png',
-                          scale: 12,
                         ),
                         const SizedBox(
                           width: 10,
@@ -225,7 +225,7 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                         Stack(
                           children: [
                             Container(
-                              width: 290,
+                              width: 190,
                               height: 9,
                               decoration: BoxDecoration(
                                 color: const Color.fromARGB(255, 186, 181, 181),
@@ -234,7 +234,7 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                             ),
                             Container(
                               width: ((widget.pokemonz.hp / 176) * 100) *
-                                  (290 / 100),
+                                  (190 / 100),
                               height: 9,
                               decoration: BoxDecoration(
                                 color: Color.fromARGB(255, 229, 19, 19),
@@ -251,7 +251,6 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                       children: [
                         Image.asset(
                           'assets/icons/attack.png',
-                          scale: 12,
                         ),
                         const SizedBox(
                           width: 10,
@@ -259,7 +258,7 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                         Stack(
                           children: [
                             Container(
-                              width: 290,
+                              width: 190,
                               height: 9,
                               decoration: BoxDecoration(
                                 color: const Color.fromARGB(255, 186, 181, 181),
@@ -268,7 +267,7 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                             ),
                             Container(
                               width: ((widget.pokemonz.attack / 176) * 100) *
-                                  (290 / 100),
+                                  (190 / 100),
                               height: 9,
                               decoration: BoxDecoration(
                                 color: Color.fromARGB(255, 229, 131, 19),
@@ -285,7 +284,6 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                       children: [
                         Image.asset(
                           'assets/icons/defense.png',
-                          scale: 12,
                         ),
                         const SizedBox(
                           width: 10,
@@ -293,7 +291,7 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                         Stack(
                           children: [
                             Container(
-                              width: 290,
+                              width: 190,
                               height: 9,
                               decoration: BoxDecoration(
                                 color: const Color.fromARGB(255, 186, 181, 181),
@@ -302,7 +300,7 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                             ),
                             Container(
                               width: ((widget.pokemonz.defense / 176) * 100) *
-                                  (290 / 100),
+                                  (190 / 100),
                               height: 9,
                               decoration: BoxDecoration(
                                 color: Color.fromARGB(255, 19, 120, 229),
@@ -319,7 +317,6 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                       children: [
                         Image.asset(
                           'assets/icons/speed.png',
-                          scale: 12,
                         ),
                         const SizedBox(
                           width: 10,
@@ -327,7 +324,7 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                         Stack(
                           children: [
                             Container(
-                              width: 290,
+                              width: 190,
                               height: 9,
                               decoration: BoxDecoration(
                                 color: const Color.fromARGB(255, 186, 181, 181),
@@ -336,7 +333,7 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                             ),
                             Container(
                               width: ((widget.pokemonz.speed / 176) * 100) *
-                                  (290 / 100),
+                                  (190 / 100),
                               height: 9,
                               decoration: BoxDecoration(
                                 color: Color.fromARGB(255, 162, 19, 229),
@@ -437,7 +434,7 @@ class _PokeballToolsState extends State<PokeballTools> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
-          width: 150,
+          width: 190,
           height: 30,
           decoration: BoxDecoration(
             color: Colors.white,

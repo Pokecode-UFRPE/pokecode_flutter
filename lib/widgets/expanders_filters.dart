@@ -142,7 +142,7 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          childAspectRatio: 4,
+          childAspectRatio: 1.9,
           mainAxisSpacing: 10,
           crossAxisSpacing: 10),
       itemCount: _tipoIndices!.length,

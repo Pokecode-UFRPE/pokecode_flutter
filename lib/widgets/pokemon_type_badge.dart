@@ -25,7 +25,7 @@ class PokemonTypeBadge extends StatelessWidget {
         formattedType,
         style: const TextStyle(
           color: Colors.white,
-          fontSize: 12,
+          fontSize: 11,
           fontWeight: FontWeight.bold,
         ),
       ),
