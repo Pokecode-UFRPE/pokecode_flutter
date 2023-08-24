@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import '../models/Pokemon.dart';
 
 class PokemonRepository {
-  Future<Pokemon> adicionarPokemon(Pokemon pokemon) async {
+  Future<PokemonCapture> adicionarPokemon(PokemonCapture pokemon) async {
     String userId = FirebaseAuth.instance.currentUser!.uid;
     await FirebaseFirestore.instance
         .collection('users')
@@ -16,7 +16,7 @@ class PokemonRepository {
     return pokemon;
   }
 
-  Future<Pokemon?> findById(String pokemonId) async {
+  Future<PokemonCapture?> findById(String pokemonId) async {
     String userId = FirebaseAuth.instance.currentUser!.uid;
     DocumentSnapshot docSnapshot = await FirebaseFirestore.instance
         .collection('users')
@@ -27,7 +27,7 @@ class PokemonRepository {
 
     if (docSnapshot.exists) {
       Map<String, dynamic> data = docSnapshot.data() as Map<String, dynamic>;
-      return Pokemon(
+      return PokemonCapture(
           id: data['id'],
           favorito: data['favorito'],
           capturado: data['capturado']);
@@ -36,7 +36,7 @@ class PokemonRepository {
     }
   }
 
-  Future<void> updatePokemon(Pokemon pokemon) async {
+  Future<void> updatePokemon(PokemonCapture pokemon) async {
     String userId = FirebaseAuth.instance.currentUser!.uid;
 
     await FirebaseFirestore.instance

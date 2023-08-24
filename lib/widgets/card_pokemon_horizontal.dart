@@ -18,22 +18,19 @@ class CardPokemonHorizontalWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     String link = '';
 
-    // Remover depois
-    if (pokemon!.name.contains('Gmax') || pokemon!.name.contains('Mega')) {
-      return SizedBox.shrink();
-    }
-    if (pokemon!.pokedex_number < 10) {
+   
+    if (pokemon!.pokedexNumber < 10) {
       link =
       'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/00${pokemon!
-          .pokedex_number}.png';
-    } else if (pokemon!.pokedex_number < 100) {
+          .pokedexNumber}.png';
+    } else if (pokemon!.pokedexNumber < 100) {
       link =
       'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/0${pokemon!
-          .pokedex_number}.png';
+          .pokedexNumber}.png';
     } else {
       link =
       'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${pokemon!
-          .pokedex_number}.png';
+          .pokedexNumber}.png';
     }
     List<String> tipos = pokemon!.typing.split("~");
 
@@ -67,7 +64,7 @@ class CardPokemonHorizontalWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '#${pokemon!.pokedex_number.toString().padLeft(
+                            '#${pokemon!.pokedexNumber.toString().padLeft(
                                 4, '0')}',
                             style: TextStyle(
                               fontSize: 14,
@@ -119,9 +116,8 @@ class CardPokemonHorizontalWidget extends StatelessWidget {
                 context: context,
                 builder: (BuildContext context) {
                   return PopupPokemonSelected(
-                    name: pokemon!.name,
-                    number_pokedex: pokemon!.pokedex_number,
                     types: tipos,
+                    pokemonz: pokemon!,
                     capturado: false,
                     link: link,
                   );

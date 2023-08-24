@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:pokecode/widgets/pokemon_type_badge.dart';
+import '../services/db_firestore.dart';
 
 // ignore: must_be_immutable
 class PopupPokemonSelected extends StatefulWidget {
-  final String name;
   // ignore: non_constant_identifier_names
-  final int number_pokedex;
   final List<String> types;
   bool capturado;
   String pokeball;
   final String link;
+  final Pokemon pokemonz;
 
-  PopupPokemonSelected({super.key, 
-    required this.name,
+  PopupPokemonSelected({
+    super.key,
     // ignore: non_constant_identifier_names
-    required this.number_pokedex,
     required this.types,
     required this.capturado,
     required this.link,
+    required this.pokemonz,
   }) : pokeball = capturado
             ? 'assets/icons/icon-pokeball.png'
             : 'assets/icons/icon-pokeball-white.png';
@@ -120,7 +120,7 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                   child: Column(
                     children: [
                       Text(
-                        widget.name.toUpperCase(),
+                        widget.pokemonz.name.toUpperCase(),
                         style: const TextStyle(
                           fontSize: 20.0,
                           fontWeight: FontWeight.bold,
@@ -128,12 +128,16 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                         ),
                       ),
                       Text(
-                        '#${widget.number_pokedex.toString().padLeft(4, '0')}',
+                        '#${widget.pokemonz.pokedexNumber.toString().padLeft(4, '0')}',
                         style: const TextStyle(
                             fontSize: 15, color: Colors.black54),
                       ),
                     ],
                   ),
+                ),
+                PokeballTools(capturado: false),
+                SizedBox(
+                  height: 20,
                 ),
                 Container(
                   margin: const EdgeInsets.only(bottom: 20),
@@ -143,7 +147,233 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                     }).toList(),
                   ),
                 ),
-                PokeballTools(capturado: false),
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          children: [
+                            Image.asset(
+                              'assets/icons/potion.png',
+                              scale: 9,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(widget.pokemonz.primaryColor)
+                          ],
+                        ),
+                        const SizedBox(
+                          width: 30,
+                        ),
+                        Column(
+                          children: [
+                            Image.asset(
+                              'assets/icons/potion.png',
+                              scale: 9,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text('${(widget.pokemonz.height / 10).toString()}m')
+                          ],
+                        ),
+                        const SizedBox(
+                          width: 30,
+                        ),
+                        Column(
+                          children: [
+                            Image.asset(
+                              'assets/icons/potion.png',
+                              scale: 9,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                                '${(widget.pokemonz.weight / 10).toString()}Kg')
+                          ],
+                        ),
+                        const SizedBox(
+                          width: 30,
+                        ),
+                        Column(
+                          children: [
+                            Image.asset(
+                              'assets/images/shapes/${widget.pokemonz.shape}.webp',
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(widget.pokemonz.shape)
+                          ],
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/icons/icon-espada.png',
+                          scale: 9,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Stack(
+                          children: [
+                            Container(
+                              width: 290,
+                              height: 9,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 186, 181, 181),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            Container(
+                              width: ((widget.pokemonz.hp / 176) * 100) *
+                                  (290 / 100),
+                              height: 9,
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 229, 19, 19),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/icons/icon-espada.png',
+                          scale: 9,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Stack(
+                          children: [
+                            Container(
+                              width: 290,
+                              height: 9,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 186, 181, 181),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            Container(
+                              width: ((widget.pokemonz.attack / 176) * 100) *
+                                  (290 / 100),
+                              height: 9,
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 229, 131, 19),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/icons/icon-espada.png',
+                          scale: 9,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Stack(
+                          children: [
+                            Container(
+                              width: 290,
+                              height: 9,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 186, 181, 181),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            Container(
+                              width: ((widget.pokemonz.defense / 176) * 100) *
+                                  (290 / 100),
+                              height: 9,
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 19, 120, 229),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/icons/icon-espada.png',
+                          scale: 9,
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Stack(
+                          children: [
+                            Container(
+                              width: 290,
+                              height: 9,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 186, 181, 181),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            Container(
+                              width: ((widget.pokemonz.speed / 176) * 100) *
+                                  (290 / 100),
+                              height: 9,
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 162, 19, 229),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                    markEvolui(widget.pokemonz.canEvolve),
+                  ],
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.black,
+                    backgroundColor: Colors.white,
+                    elevation: 8,
+                    shape: const CircleBorder(
+                      side: BorderSide(
+                          color: Color.fromARGB(
+                              128, 0, 0, 0)), // Borda preta clarinha
+                    ),
+                  ),
+                  child: const Padding(
+                    padding:
+                        EdgeInsets.all(10.0), // Espaçamento interno do ícone
+                    child: Icon(
+                      Icons.close, // Ícone "X"
+                      size: 24, // Tamanho do ícone
+                      color: Colors.black54, // Cor do ícone preto clarinho
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -160,7 +390,8 @@ class PokeballTools extends StatefulWidget {
   int gosto = 0;
   String pokeball;
 
-  PokeballTools({super.key, 
+  PokeballTools({
+    super.key,
     required this.capturado,
   }) : pokeball = capturado
             ? 'assets/icons/icon-pokeball.png'
@@ -258,5 +489,34 @@ class _PokeballToolsState extends State<PokeballTools> {
         ),
       ],
     );
+  }
+}
+
+Widget markEvolui(bool evolui) {
+  if (evolui) {
+    return const SizedBox(
+      width: 220,
+      height: 50,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Pode evoluir",
+            style: TextStyle(
+              color: Color.fromARGB(255, 0, 0, 0),
+              fontSize: 12,
+              fontFamily: 'PressStart2P',
+            ),
+          ),
+          SizedBox(width: 10),
+          Icon(
+            Icons.auto_awesome,
+            color: Colors.black,
+          ),
+        ],
+      ),
+    );
+  } else {
+    return Container(); // Retorna um Container vazio caso não evolua
   }
 }

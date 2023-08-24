@@ -78,7 +78,7 @@ class _MyAppBarState extends State<MyAppBar> {
                       final filtroEValorNovo = await showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return PopupFilter();
+                          return const PopupFilter();
                         },
                       );
                       if (filtroEValorNovo != null) {

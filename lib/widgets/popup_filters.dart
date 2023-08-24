@@ -9,7 +9,7 @@ class PopupFilter extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       contentPadding: EdgeInsets.zero,
-      content: Container(
+      content: SizedBox(
         width: double.maxFinite,
         height: double.maxFinite,
 

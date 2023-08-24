@@ -1,9 +1,9 @@
-class Pokemon {
+class PokemonCapture {
   final String id;
   bool capturado;
   bool favorito;
 
-  Pokemon({
+  PokemonCapture({
     required this.id,
     required this.capturado,
     required this.favorito,

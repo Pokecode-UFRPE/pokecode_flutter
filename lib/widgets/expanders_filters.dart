@@ -19,7 +19,7 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
   List<String>? _tipoIndices;
   List<String>? _colorIndices;
   List<String>? _shapesIndices;
-  List<String> raridades = ['baby_pokemon', 'legendary', 'mythical'];
+  List<String> raridades = ['baby', 'legendary', 'mythical'];
 
   @override
   void initState() {
@@ -40,14 +40,45 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _buildExpander('Tipo', _tipoExpanded, _buildTipoContent()),
-        _buildExpander('Geração', _geracaoExpanded, _buildGeracaoContent()),
-        _buildExpander('Formato', _formatoExpanded, _buildFormatoContent()),
-        _buildExpander('Cor', _corExpanded, _buildCorContent()),
-        _buildExpander('Raridade', _raridadeExpanded, _buildRaridadeContent()),
-      ],
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context, ['','']); 
+        return true; 
+      },
+      child: Column(
+        children: [
+          _buildExpander('Tipo', _tipoExpanded, _buildTipoContent()),
+          _buildExpander('Geração', _geracaoExpanded, _buildGeracaoContent()),
+          _buildExpander('Formato', _formatoExpanded, _buildFormatoContent()),
+          _buildExpander('Cor', _corExpanded, _buildCorContent()),
+          _buildExpander('Raridade', _raridadeExpanded, _buildRaridadeContent()),
+          const SizedBox(
+            height: 10,
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context, ['', '']);
+            },
+            style: ElevatedButton.styleFrom(
+              foregroundColor: Colors.black,
+              backgroundColor: Colors.white,
+              elevation: 8,
+              shape: const CircleBorder(
+                side: BorderSide(
+                    color: Color.fromARGB(128, 0, 0, 0)), // Borda preta clarinha
+              ),
+            ),
+            child: const Padding(
+              padding: EdgeInsets.all(10.0), // Espaçamento interno do ícone
+              child: Icon(
+                Icons.close, // Ícone "X"
+                size: 24, // Tamanho do ícone
+                color: Colors.black54, // Cor do ícone preto clarinho
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 
@@ -291,7 +322,7 @@ Color getCorFromNome(String nomeCor) {
 
 Icon getRaridadeIcon(String nomeIcon) {
   Map<String, IconData> img = {
-    "baby_pokemon": Icons.cake,
+    "baby": Icons.cake,
     "legendary": Icons.auto_awesome_sharp,
     "mythical": Icons.diamond_rounded,
   };
