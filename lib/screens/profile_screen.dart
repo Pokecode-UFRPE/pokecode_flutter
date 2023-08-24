@@ -273,7 +273,7 @@ class DataPopup extends StatelessWidget {
                               height: 40,
                               width: 300,
                               child: TextField(
-                                                                enabled: false,
+                                enabled: false,
 
                                 // controller: TextEditingController(text: 'Valor da Variável'),
                                 style: TextStyle(
@@ -402,7 +402,7 @@ class DataPopup extends StatelessWidget {
                               height: 40,
                               width: 300,
                               child: TextField(
-                                                                enabled: false,
+                                enabled: false,
 
                                 // controller: TextEditingController(text: 'Valor da Variável'),
                                 style: TextStyle(
