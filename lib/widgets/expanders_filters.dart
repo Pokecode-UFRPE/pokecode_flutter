@@ -51,32 +51,8 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
           _buildExpander('Geração', _geracaoExpanded, _buildGeracaoContent()),
           _buildExpander('Formato', _formatoExpanded, _buildFormatoContent()),
           _buildExpander('Cor', _corExpanded, _buildCorContent()),
-          _buildExpander('Raridade', _raridadeExpanded, _buildRaridadeContent()),
-          const SizedBox(
-            height: 10,
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context, ['', '']);
-            },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.black,
-              backgroundColor: Colors.white,
-              elevation: 8,
-              shape: const CircleBorder(
-                side: BorderSide(
-                    color: Color.fromARGB(128, 0, 0, 0)), // Borda preta clarinha
-              ),
-            ),
-            child: const Padding(
-              padding: EdgeInsets.all(10.0), // Espaçamento interno do ícone
-              child: Icon(
-                Icons.close, // Ícone "X"
-                size: 24, // Tamanho do ícone
-                color: Colors.black54, // Cor do ícone preto clarinho
-              ),
-            ),
-          )
+          _buildExpander('Raridade', _raridadeExpanded, _buildRaridadeContent()),          
+          SizedBox(height: 80,)
         ],
       ),
     );
@@ -142,7 +118,7 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          childAspectRatio: 1.9,
+          childAspectRatio: 2,
           mainAxisSpacing: 10,
           crossAxisSpacing: 10),
       itemCount: _tipoIndices!.length,
@@ -207,7 +183,7 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
     return GridView.builder(
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 7,
+        crossAxisCount: 4,
         childAspectRatio: 0.8,
         // mainAxisSpacing: 10,
         crossAxisSpacing: 10,
@@ -227,7 +203,7 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
                   Text(
                     shape.toString(),
                     style: const TextStyle(
-                      fontSize: 8.0,
+                      fontSize: 9.0,
                       fontWeight: FontWeight.bold,
                       fontStyle: FontStyle.italic,
                       color: Color.fromARGB(255, 80, 77, 77),
@@ -279,9 +255,6 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        childAspectRatio: 2,
-        mainAxisSpacing: 10,
-        crossAxisSpacing: 10,
       ),
       itemCount: 3,
       itemBuilder: (context, index) {
