@@ -15,7 +15,7 @@ class PokemonTypeBadge extends StatelessWidget {
     return Container(
       margin: const EdgeInsetsDirectional.only(end: 5),
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
-      width: 80,
+      width: 70,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: backgroundColor,

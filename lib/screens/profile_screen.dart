@@ -1,7 +1,97 @@
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key});
+  const ProfileScreen({super.key,});
+
+  Future<void> _showEditImg(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Row(
+            children: [
+              Icon(Icons.enhance_photo_translate),
+              SizedBox(width: 10),
+              Text('Alterar imagem'),
+            ],
+          ),
+          content: SizedBox(
+            height: 270,
+            child: Column(
+              children: [
+                Container(
+                  width: 200,
+                  height: 200,
+                  decoration: BoxDecoration(
+                    shape: BoxShape
+                        .circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                      ),
+                    ],
+                  ),
+                  child: Image.asset(
+                    'assets/images/user_icon.png',
+                    width: 200,
+                    height: 200,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  height: 40,
+                  width: 200,
+                  child: ElevatedButton.icon(
+                    onPressed: () async {
+                      FilePickerResult? result =
+                          await FilePicker.platform.pickFiles(
+                        type: FileType.image,
+                      );
+
+                      if (result != null) {
+                        // ignore: unused_local_variable
+                        PlatformFile file = result.files.first;
+                      }
+                    },
+                    icon: const Icon(Icons.enhance_photo_translate),
+                    label: const Text('Selecionar arquivo'),
+                    style: ElevatedButton.styleFrom(
+                      elevation: 5,
+                      foregroundColor: Colors.white,
+                      backgroundColor: const Color(0xFF4C7CF6),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop('s');
+              },
+            ),
+            TextButton(
+              child: const Text('Salvar'),
+              onPressed: () {
+                Navigator.of(context).pop('s');
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +138,31 @@ class ProfileScreen extends StatelessWidget {
                         children: [
                           Padding(
                             padding: const EdgeInsets.only(top: 80),
-                            child: Image.asset(
-                              'assets/images/user_icon.png',
-                              fit: BoxFit.cover,
-                              height: 150,
+                            child: Stack(
+                              children: [
+                                Image.asset(
+                                  'assets/images/user_icon.png',
+                                  fit: BoxFit.cover,
+                                  height: 150,
+                                ),
+                                Positioned(
+                                  bottom: 5,
+                                  right: 10,
+                                  child: Material(
+                                    elevation: 4,
+                                    shape: const CircleBorder(),
+                                    child: IconButton(
+                                      onPressed: () {
+                                        _showEditImg(context);
+                                      },
+                                      icon: const Icon(
+                                        Icons.enhance_photo_translate,
+                                        color: Colors.black,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              ],
                             ),
                           ),
                           Padding(
@@ -93,8 +204,7 @@ class ProfileScreen extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.black,
                         backgroundColor: Colors.white,
-                        shadowColor:
-                            Colors.grey.withOpacity(0.5), // Cor da sombra
+                        shadowColor: Colors.grey.withOpacity(0.5),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -123,7 +233,7 @@ class ProfileScreen extends StatelessWidget {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return DataPopup();
+                                return const DataPopup();
                               },
                             );
                           },
@@ -186,21 +296,18 @@ class ProfileScreen extends StatelessWidget {
                         child: FilledButton(
                           onPressed: () {},
                           style: FilledButton.styleFrom(
-                            backgroundColor: const Color(
-                                0xFF4C7CF6), // Cor de fundo do botão
+                            backgroundColor: const Color(0xFF4C7CF6),
                             shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.circular(8), // Raio do botão
+                              borderRadius: BorderRadius.circular(8),
                             ),
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                                vertical: 12), // Espaçamento interno do botão
+                                horizontal: 16, vertical: 12),
                           ),
                           child: const Text(
                             'Logout',
                             style: TextStyle(
-                              color: Colors.white, // Cor do texto
-                              fontFamily: 'PressStart2P', // Fonte PressStart2P
+                              color: Colors.white,
+                              fontFamily: 'PressStart2P',
                             ),
                           ),
                         ),
@@ -218,20 +325,64 @@ class ProfileScreen extends StatelessWidget {
 }
 
 class DataPopup extends StatelessWidget {
+  const DataPopup({super.key});
+
+  Future<void> _showEditDialog(BuildContext context, List controller) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        TextEditingController controller0 =
+            TextEditingController(text: controller[0]);
+        TextEditingController dadoAAlterar =
+            TextEditingController(text: controller[1]);
+
+        return AlertDialog(
+          title: Row(
+            children: [
+              const Icon(Icons.edit),
+              const SizedBox(width: 10),
+              Text('Editar ${dadoAAlterar.text}'),
+            ],
+          ),
+          content: TextField(
+            controller: controller0,
+            decoration: const InputDecoration(labelText: 'Novo dado'),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop(dadoAAlterar.text);
+              },
+            ),
+            TextButton(
+              child: const Text('Salvar'),
+              onPressed: () {
+                Navigator.of(context).pop(dadoAAlterar.text);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    var nome = 'Pedo';
+    var apelido = 'Peh';
+    var email = 'pehcarrera@vamoqvamo.com';
+
     return AlertDialog(
       shape: RoundedRectangleBorder(
-        borderRadius:
-            BorderRadius.circular(35), // Define o valor do arredondamento
+        borderRadius: BorderRadius.circular(35),
       ),
       contentPadding: EdgeInsets.zero,
       content: Stack(
         alignment: Alignment.center,
         children: [
           SizedBox(
-            width: MediaQuery.of(context).size.width * 2.5 / 3,
-            height: 460,
+            height: 370,
             child: Column(
               children: [
                 Container(
@@ -246,7 +397,7 @@ class DataPopup extends StatelessWidget {
                   child: const Text(
                     'Dados pessoais',
                     style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 15,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'PressStart2P',
                         color: Color.fromARGB(235, 255, 255, 255)),
@@ -258,51 +409,23 @@ class DataPopup extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Nome:',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Color(0xFF000000), // Cor do texto preto
-                        ),
-                      ),
-                      const SizedBox(height: 10),
                       Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const SizedBox(
+                            SizedBox(
                               height: 40,
-                              width: 300,
+                              width: 190,
                               child: TextField(
-                                enabled: false,
-
-                                // controller: TextEditingController(text: 'Valor da Variável'),
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color(0xFF000000),
-                                ),
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Color.fromARGB(255, 243, 239, 239),
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(2)),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xFFD3D3D3)),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(2)),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color:
-                                            Color.fromARGB(255, 219, 212, 212)),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(2)),
-                                  ),
+                                decoration: const InputDecoration(
+                                  labelText: 'Nome:',
                                   contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 8),
+                                      EdgeInsets.symmetric(vertical: 5),
+                                ),
+                                enabled: false,
+                                controller: TextEditingController(text: nome),
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Color(0xFF000000),
                                 ),
                               ),
                             ),
@@ -311,7 +434,51 @@ class DataPopup extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                // Função a ser executada ao clicar no ícone
+                                _showEditDialog(
+                                  context,
+                                  [nome, 'nome'],
+                                );
+                              },
+                              child: const Icon(
+                                Icons.edit,
+                                size: 28,
+                                color: Color(0xFF000000),
+                              ),
+                            ),
+                          ]),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 40,
+                              width: 190,
+                              child: TextField(
+                                decoration: const InputDecoration(
+                                  labelText: 'Apelido:',
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 5),
+                                ),
+                                enabled: false,
+                                controller:
+                                    TextEditingController(text: apelido),
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Color(0xFF000000),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 13,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                _showEditDialog(
+                                  context,
+                                  [apelido, 'apelido'],
+                                );
                               },
                               child: const Icon(
                                 Icons.edit,
@@ -323,50 +490,23 @@ class DataPopup extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      const Text(
-                        'Apelido:',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Color(0xFF000000), // Cor do texto preto
-                        ),
-                      ),
-                      const SizedBox(height: 10),
                       Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const SizedBox(
+                            SizedBox(
                               height: 40,
-                              width: 300,
+                              width: 190,
                               child: TextField(
-                                enabled: false,
-                                // controller: TextEditingController(text: 'Valor da Variável'),
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color(0xFF000000),
-                                ),
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Color.fromARGB(255, 243, 239, 239),
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(2)),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xFFD3D3D3)),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(2)),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color:
-                                            Color.fromARGB(255, 219, 212, 212)),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(2)),
-                                  ),
+                                decoration: const InputDecoration(
+                                  labelText: 'Email:',
                                   contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 8),
+                                      EdgeInsets.symmetric(vertical: 5),
+                                ),
+                                enabled: false,
+                                controller: TextEditingController(text: email),
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Color(0xFF000000),
                                 ),
                               ),
                             ),
@@ -375,72 +515,10 @@ class DataPopup extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                // Função a ser executada ao clicar no ícone
-                              },
-                              child: const Icon(
-                                Icons.edit,
-                                size: 28, // Tamanho aumentado
-                                color: Color(0xFF000000), // Cor do ícone preto
-                              ),
-                            ),
-                          ]),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      const Text(
-                        'Email:',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Color(0xFF000000), // Cor do texto preto
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const SizedBox(
-                              height: 40,
-                              width: 300,
-                              child: TextField(
-                                enabled: false,
-
-                                // controller: TextEditingController(text: 'Valor da Variável'),
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Color(0xFF000000),
-                                ),
-                                decoration: InputDecoration(
-                                  filled: true,
-                                  fillColor: Color.fromARGB(255, 243, 239, 239),
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(2)),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide:
-                                        BorderSide(color: Color(0xFFD3D3D3)),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(2)),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color:
-                                            Color.fromARGB(255, 219, 212, 212)),
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(2)),
-                                  ),
-                                  contentPadding:
-                                      EdgeInsets.symmetric(horizontal: 8),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 13,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                // Função a ser executada ao clicar no ícone
+                                _showEditDialog(
+                                  context,
+                                  [email, 'email'],
+                                );
                               },
                               child: const Icon(
                                 Icons.edit,

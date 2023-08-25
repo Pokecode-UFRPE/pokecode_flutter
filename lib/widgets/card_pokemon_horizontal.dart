@@ -8,7 +8,7 @@ class CardPokemonHorizontalWidget extends StatelessWidget {
   final int currentIndex;
   final Pokemon? pokemon;
 
-  CardPokemonHorizontalWidget({
+  const CardPokemonHorizontalWidget({
     Key? key,
     required this.currentIndex,
     required this.pokemon,

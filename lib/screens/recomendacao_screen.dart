@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import '../services/db_firestore.dart';
+import '../widgets/app_bar_widget.dart';
 import '../widgets/bottom_navigation_bar_widget.dart';
 import '../widgets/card_recomendacao_widget.dart';
 import '../widgets/card_simples_recomendacao_widget.dart';
@@ -26,7 +27,6 @@ class _RecomendacaoScreenState extends State<RecomendacaoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar:  MyAppBar(currentIndex: 0),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -34,6 +34,7 @@ class _RecomendacaoScreenState extends State<RecomendacaoScreen> {
               children: [constructorStarCard(star)],
             ),
             GridView.builder(
+              physics: PageScrollPhysics(),
               shrinkWrap: true,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
