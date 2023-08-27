@@ -1,15 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:pokecode/screens/cadastro_screen.dart';
-import 'package:pokecode/screens/esqueci_senha_screen.dart';
-import 'package:pokecode/screens/login_screen.dart';
-import 'package:pokecode/screens/profile_screen.dart';
+import 'package:pokecode/screens/pokemon/cadastro_screen.dart';
+import 'package:pokecode/screens/pokemon/pokedex_screen.dart';
+import 'package:pokecode/screens/pokemon/recommendation/recomendacao_screen.dart';
+import 'package:pokecode/screens/pokemon/sacola_screen.dart';
+import 'package:pokecode/screens/user/esqueci_senha_screen.dart';
+import 'package:pokecode/screens/user/login_screen.dart';
+import 'package:pokecode/screens/user/profile_screen.dart';
 
 import 'firebase_options.dart';
-import 'screens/pokedex_screen.dart';
-import 'screens/recomendacao_screen.dart';
-import 'screens/sacola_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,13 +33,13 @@ class MyApp extends StatelessWidget {
       title: 'PokeCode',
       initialRoute: initialRoute,
       routes: {
-        '/sacola': (context) => SacolaScreen(),
-        '/login': (context) => LoginScreen(),
-        '/cadastro': (context) => CadastroScreen(),
-        '/esqueci-senha': (context) => EsqueciSenhaScreen(),
-        '/': (context) => PokedexScreen(),
-        '/recomendacoes': (context) => RecomendacaoScreen(),
-        '/profile': (context) => ProfileScreen(),
+        '/sacola': (context) => BagScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/cadastro': (context) => const CadastroScreen(),
+        '/esqueci-senha': (context) => const EsqueciSenhaScreen(),
+        '/': (context) => const PokedexScreen(),
+        '/recomendacoes': (context) => const RecommendationScreen(),
+        '/profile': (context) => const ProfileScreen(),
       },
     );
   }

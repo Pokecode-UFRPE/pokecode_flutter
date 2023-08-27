@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:pokecode/models/PokemonCapture.dart';
+import 'package:pokecode/useCases/PokemonCaptureUseCase.dart';
 import 'package:pokecode/widgets/pokemon_type_badge.dart';
 import 'package:pokecode/widgets/popup_pokemon_selected.dart';
 
-import '../services/db_firestore.dart';
+import '../models/Pokemon.dart';
 
-class CardPokemonHorizontalWidget extends StatelessWidget {
+class CardPokemonHorizontalWidget extends StatefulWidget {
   final int currentIndex;
   final Pokemon? pokemon;
 
@@ -15,28 +17,38 @@ class CardPokemonHorizontalWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _CardPokemonHorizontalWidgetState createState() =>
+      _CardPokemonHorizontalWidgetState();
+}
+
+class _CardPokemonHorizontalWidgetState
+    extends State<CardPokemonHorizontalWidget> {
+  PokemonCapture _pokemonCapture =
+      PokemonCapture(id: "1", gosta: 0, capturado: false, favorito: false);
+  String link = "";
+  String? _pokeball;
+  List<String> tipos = [];
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      PokemonCaptureUseCase()
+          .getPokemon(widget.pokemon!.pokedexNumber.toString())
+          .then((value) => _pokemonCapture = value);
+      _pokeball =
+          _pokemonCapture.capturado ? 'assets/icons/icon-pokeball.png' : "";
+      link =
+          'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${widget.pokemon!.pokedexNumber.toString().padLeft(3, '0')}.png';
+      tipos = widget.pokemon!.typing.split("~");
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    String link = '';
-
-   
-    if (pokemon!.pokedexNumber < 10) {
-      link =
-      'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/00${pokemon!
-          .pokedexNumber}.png';
-    } else if (pokemon!.pokedexNumber < 100) {
-      link =
-      'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/0${pokemon!
-          .pokedexNumber}.png';
-    } else {
-      link =
-      'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${pokemon!
-          .pokedexNumber}.png';
-    }
-    List<String> tipos = pokemon!.typing.split("~");
-
     return Center(
       child: Padding(
-        padding: const EdgeInsetsDirectional.symmetric(horizontal: 10),
+        padding: EdgeInsetsDirectional.symmetric(horizontal: 10),
         child: Card(
           color: Colors.white,
           elevation: 4.0,
@@ -46,14 +58,8 @@ class CardPokemonHorizontalWidget extends StatelessWidget {
           ),
           child: InkWell(
             child: SizedBox(
-              width: MediaQuery
-                  .of(context)
-                  .size
-                  .width / 1,
-              height: MediaQuery
-                  .of(context)
-                  .size
-                  .width / 3.5,
+              width: MediaQuery.of(context).size.width / 1,
+              height: MediaQuery.of(context).size.width / 3.5,
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: Row(
@@ -64,8 +70,7 @@ class CardPokemonHorizontalWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '#${pokemon!.pokedexNumber.toString().padLeft(
-                                4, '0')}',
+                            '#${widget.pokemon!.pokedexNumber.toString().padLeft(4, '0')}',
                             style: TextStyle(
                               fontSize: 14,
                               color: Colors.grey.shade500,
@@ -74,7 +79,7 @@ class CardPokemonHorizontalWidget extends StatelessWidget {
                           ),
                           const SizedBox(height: 5),
                           Text(
-                            pokemon!.name,
+                            widget.pokemon!.name,
                             style: const TextStyle(
                               fontSize: 14,
                               color: Colors.black,
@@ -96,10 +101,7 @@ class CardPokemonHorizontalWidget extends StatelessWidget {
                     CircleAvatar(
                       backgroundColor: Colors.white,
                       foregroundColor: const Color.fromARGB(255, 255, 191, 0),
-                      radius: MediaQuery
-                          .of(context)
-                          .size
-                          .width / 6,
+                      radius: MediaQuery.of(context).size.width / 6,
                       child: ClipOval(
                         child: Image.network(
                           link,
@@ -117,8 +119,8 @@ class CardPokemonHorizontalWidget extends StatelessWidget {
                 builder: (BuildContext context) {
                   return PopupPokemonSelected(
                     types: tipos,
-                    pokemonz: pokemon!,
-                    capturado: false,
+                    pokemonz: widget.pokemon!,
+                    pokemonCapture: _pokemonCapture,
                     link: link,
                   );
                 },

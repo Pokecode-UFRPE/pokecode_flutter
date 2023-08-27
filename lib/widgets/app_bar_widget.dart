@@ -8,7 +8,12 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   final ValueChanged<String> onInputChanged;
   final ValueChanged<List> onPopupChanged;
 
-  MyAppBar({required this.currentIndex, required this.valorInput, required this.onInputChanged, required this.onPopupChanged, required this.filtroEValorAppBar});
+  MyAppBar(
+      {required this.currentIndex,
+      required this.valorInput,
+      required this.onInputChanged,
+      required this.onPopupChanged,
+      required this.filtroEValorAppBar});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -49,10 +54,8 @@ class _MyAppBarState extends State<MyAppBar> {
             child: Stack(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                  ),
-                  height: 40,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  height: 45,
                   child: TextField(
                     controller: _controller,
                     decoration: InputDecoration(
@@ -82,15 +85,14 @@ class _MyAppBarState extends State<MyAppBar> {
                         },
                       );
                       if (filtroEValorNovo != null) {
-                        setState(() {
-                        });
+                        setState(() {});
                       }
                       widget.onPopupChanged(filtroEValorNovo);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,
                       shape: const CircleBorder(),
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(12),
                     ),
                     child: const Icon(Icons.search, color: Colors.white),
                   ),

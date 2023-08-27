@@ -1,8 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key,});
+  const ProfileScreen({
+    super.key,
+  });
 
   Future<void> _showEditImg(BuildContext context) async {
     showDialog(
@@ -24,8 +27,7 @@ class ProfileScreen extends StatelessWidget {
                   width: 200,
                   height: 200,
                   decoration: BoxDecoration(
-                    shape: BoxShape
-                        .circle,
+                    shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.5),
@@ -233,7 +235,7 @@ class ProfileScreen extends StatelessWidget {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return const DataPopup();
+                                return DataPopup();
                               },
                             );
                           },
@@ -262,39 +264,13 @@ class ProfileScreen extends StatelessWidget {
                     const SizedBox(height: 15),
                     Center(
                       child: SizedBox(
-                        height: 50,
-                        width: 400,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.only(left: 8.0),
-                                child: Text(
-                                  'Alterar Senha',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                              Icon(
-                                Icons.lock,
-                                color: Colors.black,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 25),
-                    Center(
-                      child: SizedBox(
                         height: 40,
                         width: 200,
                         child: FilledButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            await FirebaseAuth.instance.signOut();
+                            Navigator.pushReplacementNamed(context, '/login');
+                          },
                           style: FilledButton.styleFrom(
                             backgroundColor: const Color(0xFF4C7CF6),
                             shape: RoundedRectangleBorder(
@@ -324,41 +300,54 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-class DataPopup extends StatelessWidget {
-  const DataPopup({super.key});
+class DataPopup extends StatefulWidget {
+  @override
+  _DataPopupState createState() => _DataPopupState();
+}
 
-  Future<void> _showEditDialog(BuildContext context, List controller) async {
+class _DataPopupState extends State<DataPopup> {
+  TextEditingController _controller0 = TextEditingController();
+  String _dadoAAlterar = '';
+  String? _nome;
+  String? _email;
+
+  Future<void> _showEditDialog(
+      BuildContext context, String controllerValue, String dado) async {
+    _dadoAAlterar = dado;
+    _controller0.text = controllerValue;
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        TextEditingController controller0 =
-            TextEditingController(text: controller[0]);
-        TextEditingController dadoAAlterar =
-            TextEditingController(text: controller[1]);
-
         return AlertDialog(
           title: Row(
             children: [
               const Icon(Icons.edit),
               const SizedBox(width: 10),
-              Text('Editar ${dadoAAlterar.text}'),
+              Text('Editar $_dadoAAlterar'),
             ],
           ),
           content: TextField(
-            controller: controller0,
-            decoration: const InputDecoration(labelText: 'Novo dado'),
+            controller: _controller0,
+            decoration: InputDecoration(labelText: "Alterador dados"),
           ),
           actions: <Widget>[
             TextButton(
               child: const Text('Cancelar'),
               onPressed: () {
-                Navigator.of(context).pop(dadoAAlterar.text);
+                Navigator.of(context).pop();
               },
             ),
             TextButton(
               child: const Text('Salvar'),
-              onPressed: () {
-                Navigator.of(context).pop(dadoAAlterar.text);
+              onPressed: () async {
+                User? user = FirebaseAuth.instance.currentUser;
+                if (_dadoAAlterar == 'email') {
+                  await user?.updateEmail(_controller0.text);
+                } else {
+                  await user?.updateDisplayName(_controller0.text);
+                }
+                Navigator.of(context).pop();
               },
             ),
           ],
@@ -368,11 +357,16 @@ class DataPopup extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    var nome = 'Pedo';
-    var apelido = 'Peh';
-    var email = 'pehcarrera@vamoqvamo.com';
+  void initState() {
+    super.initState();
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User? user = auth.currentUser;
+    _nome = user?.displayName;
+    _email = user?.email;
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return AlertDialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(35),
@@ -410,123 +404,86 @@ class DataPopup extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 40,
-                              width: 190,
-                              child: TextField(
-                                decoration: const InputDecoration(
-                                  labelText: 'Nome:',
-                                  contentPadding:
-                                      EdgeInsets.symmetric(vertical: 5),
-                                ),
-                                enabled: false,
-                                controller: TextEditingController(text: nome),
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Color(0xFF000000),
-                                ),
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 40,
+                            width: 190,
+                            child: TextField(
+                              decoration: const InputDecoration(
+                                labelText: 'Nome:',
+                                contentPadding:
+                                    EdgeInsets.symmetric(vertical: 5),
                               ),
-                            ),
-                            const SizedBox(
-                              width: 13,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                _showEditDialog(
-                                  context,
-                                  [nome, 'nome'],
-                                );
-                              },
-                              child: const Icon(
-                                Icons.edit,
-                                size: 28,
+                              enabled: false,
+                              controller: TextEditingController(text: _nome),
+                              style: const TextStyle(
+                                fontSize: 14,
                                 color: Color(0xFF000000),
                               ),
                             ),
-                          ]),
+                          ),
+                          const SizedBox(
+                            width: 13,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              _showEditDialog(
+                                context,
+                                _nome ?? '',
+                                'nome',
+                              );
+                            },
+                            child: const Icon(
+                              Icons.edit,
+                              size: 28,
+                              color: Color(0xFF000000),
+                            ),
+                          ),
+                        ],
+                      ),
                       const SizedBox(
                         height: 30,
                       ),
                       Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 40,
-                              width: 190,
-                              child: TextField(
-                                decoration: const InputDecoration(
-                                  labelText: 'Apelido:',
-                                  contentPadding:
-                                      EdgeInsets.symmetric(vertical: 5),
-                                ),
-                                enabled: false,
-                                controller:
-                                    TextEditingController(text: apelido),
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Color(0xFF000000),
-                                ),
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 40,
+                            width: 190,
+                            child: TextField(
+                              decoration: const InputDecoration(
+                                labelText: 'Email:',
+                                contentPadding:
+                                    EdgeInsets.symmetric(vertical: 5),
+                              ),
+                              enabled: false,
+                              controller: TextEditingController(text: _email),
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Color(0xFF000000),
                               ),
                             ),
-                            const SizedBox(
-                              width: 13,
+                          ),
+                          const SizedBox(
+                            width: 13,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              _showEditDialog(
+                                context,
+                                _email ?? '',
+                                'email',
+                              );
+                            },
+                            child: const Icon(
+                              Icons.edit,
+                              size: 28, // Tamanho aumentado
+                              color: Color(0xFF000000), // Cor do ícone preto
                             ),
-                            InkWell(
-                              onTap: () {
-                                _showEditDialog(
-                                  context,
-                                  [apelido, 'apelido'],
-                                );
-                              },
-                              child: const Icon(
-                                Icons.edit,
-                                size: 28, // Tamanho aumentado
-                                color: Color(0xFF000000), // Cor do ícone preto
-                              ),
-                            ),
-                          ]),
-                      const SizedBox(
-                        height: 30,
+                          ),
+                        ],
                       ),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              height: 40,
-                              width: 190,
-                              child: TextField(
-                                decoration: const InputDecoration(
-                                  labelText: 'Email:',
-                                  contentPadding:
-                                      EdgeInsets.symmetric(vertical: 5),
-                                ),
-                                enabled: false,
-                                controller: TextEditingController(text: email),
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: Color(0xFF000000),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 13,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                _showEditDialog(
-                                  context,
-                                  [email, 'email'],
-                                );
-                              },
-                              child: const Icon(
-                                Icons.edit,
-                                size: 28, // Tamanho aumentado
-                                color: Color(0xFF000000), // Cor do ícone preto
-                              ),
-                            ),
-                          ]),
                     ],
                   ),
                 ),

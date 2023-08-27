@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:pokecode/models/PokemonCapture.dart';
+import 'package:pokecode/repository/PokemonUserRepository.dart';
 import 'package:pokecode/widgets/pokemon_type_badge.dart';
-import '../services/db_firestore.dart';
 
-// ignore: must_be_immutable
+import '../models/Pokemon.dart';
+
 class PopupPokemonSelected extends StatefulWidget {
-  // ignore: non_constant_identifier_names
   final List<String> types;
-  bool capturado;
   String pokeball;
+  PokemonCapture pokemonCapture;
   final String link;
   final Pokemon pokemonz;
 
   PopupPokemonSelected({
     super.key,
-    // ignore: non_constant_identifier_names
+    required this.pokemonCapture,
     required this.types,
-    required this.capturado,
     required this.link,
     required this.pokemonz,
-  }) : pokeball = capturado
+  }) : pokeball = pokemonCapture.capturado
             ? 'assets/icons/icon-pokeball.png'
             : 'assets/icons/icon-pokeball-white.png';
 
@@ -28,13 +28,22 @@ class PopupPokemonSelected extends StatefulWidget {
 }
 
 class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
-  bool _showActions = false;
+  final PokemonUserRepository _pokemonRepository = PokemonUserRepository();
 
   void changeCapturado() {
     setState(() {
-      widget.capturado = !widget.capturado;
-      _showActions = !_showActions;
-      if (widget.capturado) {
+      bool estePokemonJaHaviaSidoCapturado = false;
+      _pokemonRepository.findById(widget.pokemonCapture.id).then((value) => {
+            if (value != null) {estePokemonJaHaviaSidoCapturado = true}
+          });
+      widget.pokemonCapture.capturado = !widget.pokemonCapture.capturado;
+      if (estePokemonJaHaviaSidoCapturado) {
+        _pokemonRepository.updatePokemon(widget.pokemonCapture);
+      } else {
+        _pokemonRepository.addPokemon(widget.pokemonCapture);
+      }
+
+      if (widget.pokemonCapture.capturado) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
               backgroundColor: Colors.green,
@@ -52,7 +61,7 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
           ),
         );
       }
-      widget.pokeball = widget.capturado
+      widget.pokeball = widget.pokemonCapture.capturado
           ? 'assets/icons/icon-pokeball.png'
           : 'assets/icons/icon-pokeball-white.png';
     });
@@ -136,7 +145,7 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                     ],
                   ),
                 ),
-                PokeballTools(capturado: false),
+                PokeballTools(pokemonCapture: widget.pokemonCapture),
                 SizedBox(
                   height: 20,
                 ),
@@ -398,15 +407,13 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
 
 // ignore: must_be_immutable
 class PokeballTools extends StatefulWidget {
-  bool capturado;
-  bool favorito = false;
-  int gosto = 0;
+  PokemonCapture pokemonCapture;
   String pokeball;
 
   PokeballTools({
     super.key,
-    required this.capturado,
-  }) : pokeball = capturado
+    required this.pokemonCapture,
+  }) : pokeball = pokemonCapture.capturado
             ? 'assets/icons/icon-pokeball.png'
             : 'assets/icons/icon-pokeball-white.png';
 
@@ -416,30 +423,35 @@ class PokeballTools extends StatefulWidget {
 }
 
 class _PokeballToolsState extends State<PokeballTools> {
+  final PokemonUserRepository _pokemonRepository = PokemonUserRepository();
+
   // Funções que representam as ações que podem ser selecionadas
   void favoritar() {
     setState(() {
-      widget.favorito = !widget.favorito;
+      widget.pokemonCapture.favorito = !widget.pokemonCapture.favorito;
     });
+    _pokemonRepository.updatePokemon(widget.pokemonCapture);
   }
 
   void gosto() {
     setState(() {
-      if (widget.gosto == 2) {
-        widget.gosto = 0;
+      if (widget.pokemonCapture.gosta == 2) {
+        widget.pokemonCapture.gosta = 0;
       } else {
-        widget.gosto = 2;
+        widget.pokemonCapture.gosta = 2;
       }
+      _pokemonRepository.updatePokemon(widget.pokemonCapture);
     });
   }
 
   void naoGosto() {
     setState(() {
-      if (widget.gosto == 3) {
-        widget.gosto = 0;
+      if (widget.pokemonCapture.gosta == 3) {
+        widget.pokemonCapture.gosta = 0;
       } else {
-        widget.gosto = 3;
+        widget.pokemonCapture.gosta = 3;
       }
+      _pokemonRepository.updatePokemon(widget.pokemonCapture);
     });
   }
 
@@ -471,10 +483,10 @@ class _PokeballToolsState extends State<PokeballTools> {
                   favoritar();
                 },
                 child: Icon(
-                  widget.favorito
+                  widget.pokemonCapture.favorito
                       ? Icons.favorite_sharp
                       : Icons.favorite_border_sharp,
-                  color: widget.favorito ? Colors.red : null,
+                  color: widget.pokemonCapture.favorito ? Colors.red : null,
                 ),
               ),
               GestureDetector(
@@ -482,7 +494,7 @@ class _PokeballToolsState extends State<PokeballTools> {
                   gosto();
                 },
                 child: Icon(
-                  widget.gosto == 2
+                  widget.pokemonCapture.gosta == 2
                       ? Icons.thumb_up_alt_rounded
                       : Icons.thumb_up_alt_outlined,
                 ),
@@ -492,7 +504,7 @@ class _PokeballToolsState extends State<PokeballTools> {
                   naoGosto();
                 },
                 child: Icon(
-                  widget.gosto == 3
+                  widget.pokemonCapture.gosta == 3
                       ? Icons.thumb_down_alt_rounded
                       : Icons.thumb_down_alt_outlined,
                 ),

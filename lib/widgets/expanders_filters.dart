@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pokecode/repository/PokemonRepository.dart';
 import 'package:pokecode/widgets/pokemon_type_badge.dart';
-import '../services/db_firestore.dart';
 
 class ExpanderFilters extends StatefulWidget {
   const ExpanderFilters({Key? key}) : super(key: key);
@@ -10,6 +10,7 @@ class ExpanderFilters extends StatefulWidget {
 }
 
 class _ExpanderFiltersState extends State<ExpanderFilters> {
+  final PokemonRepository _pokemonRepository = PokemonRepository();
   bool _tipoExpanded = true;
   bool _geracaoExpanded = false;
   bool _formatoExpanded = false;
@@ -28,9 +29,9 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
   }
 
   Future<void> _loadData() async {
-    List<String>? tipos = await getTypes();
-    List<String>? cores = await getColors();
-    List<String>? shapes = await getShapes();
+    List<String>? tipos = await _pokemonRepository.getTypes();
+    List<String>? cores = await _pokemonRepository.getColors();
+    List<String>? shapes = await _pokemonRepository.getShapes();
     setState(() {
       _tipoIndices = tipos;
       _colorIndices = cores;
@@ -42,17 +43,20 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Navigator.pop(context, ['','']); 
-        return true; 
+        Navigator.pop(context, ['', '']);
+        return true;
       },
       child: Column(
         children: [
-          _buildExpander('Tipo', _tipoExpanded, _buildTipoContent()),
+          _buildExpander('Tipo', _tipoExpanded, _buildTypeContent()),
           _buildExpander('Geração', _geracaoExpanded, _buildGeracaoContent()),
           _buildExpander('Formato', _formatoExpanded, _buildFormatoContent()),
           _buildExpander('Cor', _corExpanded, _buildCorContent()),
-          _buildExpander('Raridade', _raridadeExpanded, _buildRaridadeContent()),          
-          SizedBox(height: 80,)
+          _buildExpander(
+              'Raridade', _raridadeExpanded, _buildRaridadeContent()),
+          const SizedBox(
+            height: 80,
+          )
         ],
       ),
     );
@@ -107,7 +111,7 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
     );
   }
 
-  Widget _buildTipoContent() {
+  Widget _buildTypeContent() {
     if (_tipoIndices == null) {
       return const Center(
         child: CircularProgressIndicator(),
