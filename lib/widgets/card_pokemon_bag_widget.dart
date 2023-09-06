@@ -35,7 +35,7 @@ class CardPokemonBagWidget extends StatelessWidget {
 
           return Center(
             child: SizedBox(
-              height: 230,
+              height: 270,
               width: 190,
               child: Card(
                 color: Colors.white,
@@ -62,6 +62,7 @@ class CardPokemonBagWidget extends StatelessWidget {
                               ),
                             ),
                           ]),
+                          SizedBox(height: 3),
                           Row(children: [
                             Text(
                               pokemon!.name,
