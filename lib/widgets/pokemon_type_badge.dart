@@ -15,7 +15,7 @@ class PokemonTypeBadge extends StatelessWidget {
     return Container(
       margin: const EdgeInsetsDirectional.only(end: 5),
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
-      width: 70,
+      width: 75,
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: backgroundColor,
@@ -34,24 +34,24 @@ class PokemonTypeBadge extends StatelessWidget {
 
   Color _getColorForType(String type) {
     final Map<String, Color> typeColors = {
-      'NORMAL': Colors.brown[400]!,
-      'FIGHTING': Colors.red[800]!,
-      'FLYING': Colors.blue[300]!,
-      'POISON': Colors.purple[800]!,
-      'GROUND': Colors.orange[700]!,
-      'ROCK': Colors.grey[800]!,
-      'BUG': Colors.lightGreen[700]!,
-      'GHOST': Colors.deepPurple[800]!,
-      'STEEL': Colors.blueGrey[400]!,
-      'FIRE': Colors.red[600]!,
-      'WATER': Colors.blue[600]!,
-      'GRASS': Colors.green[600]!,
-      'ELECTRIC': Colors.yellow[700]!,
-      'PSYCHIC': Colors.pink[400]!,
-      'ICE': Colors.cyan[300]!,
-      'DRAGON': Colors.indigo[700]!,
-      'DARK': Colors.brown[900]!,
-      'FAIRY': Colors.pink[100]!,
+      'NORMAL': Color.fromARGB(255, 144, 153, 162)!,
+      'FIGHTING': Color.fromARGB(255, 206, 63, 107)!,
+      'FLYING': Color.fromARGB(255, 143, 168, 222)!,
+      'POISON': Color.fromARGB(255, 171, 106, 200)!,
+      'GROUND': Color.fromARGB(255, 214, 119, 70)!,
+      'ROCK': Color.fromARGB(255, 201, 182, 139)!,
+      'BUG': Color.fromARGB(255, 145, 192, 45)!,
+      'GHOST': Color.fromARGB(255, 82, 105, 173)!,
+      'STEEL': Color.fromARGB(255, 91, 142, 161)!,
+      'FIRE': Color.fromARGB(255, 254, 156, 85)!,
+      'WATER': Color.fromARGB(255, 77, 144, 214)!,
+      'GRASS': Color.fromARGB(255, 101, 188, 94)!,
+      'ELECTRIC': Color.fromARGB(255, 244, 210, 59)!,
+      'PSYCHIC': Color.fromARGB(255, 249, 112, 119)!,
+      'ICE': Color.fromARGB(255, 155, 206, 191)!,
+      'DRAGON': Color.fromARGB(255, 9, 109, 195)!,
+      'DARK': Color.fromARGB(255, 91, 82, 101)!,
+      'FAIRY': Color.fromARGB(255, 236, 144, 231)!,
     };
 
     return typeColors[type.toUpperCase()] ?? Colors.deepOrange;
