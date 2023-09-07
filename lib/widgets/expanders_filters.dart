@@ -32,6 +32,7 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
     List<String>? tipos = await _pokemonRepository.getTypes();
     List<String>? cores = await _pokemonRepository.getColors();
     List<String>? shapes = await _pokemonRepository.getShapes();
+    
     setState(() {
       _tipoIndices = tipos;
       _colorIndices = cores;
@@ -55,7 +56,7 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
           _buildExpander(
               'Raridade', _raridadeExpanded, _buildRaridadeContent()),
           const SizedBox(
-            height: 80,
+            height: 81,
           )
         ],
       ),
@@ -122,9 +123,9 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          childAspectRatio: 2,
+          childAspectRatio: 2.7,
           mainAxisSpacing: 10,
-          crossAxisSpacing: 10),
+          crossAxisSpacing: 8),
       itemCount: _tipoIndices!.length,
       itemBuilder: (context, index) {
         final tipo = _tipoIndices![index];
@@ -160,8 +161,8 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
           child: Container(
             alignment: Alignment.center,
             decoration: const BoxDecoration(
-              color: Color.fromARGB(218, 255, 85, 85), // Cor de fundo
-              shape: BoxShape.circle, // Define a forma como círculo
+              color: Color.fromARGB(218, 255, 85, 85),
+              shape: BoxShape.circle,
             ),
             child: Text(
               '$geracaoª',

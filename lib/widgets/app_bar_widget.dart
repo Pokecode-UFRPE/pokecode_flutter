@@ -43,6 +43,7 @@ class _MyAppBarState extends State<MyAppBar> {
   Widget build(BuildContext context) {
     return AppBar(
       automaticallyImplyLeading: false,
+      backgroundColor: Color.fromARGB(255, 82, 114, 255),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -94,7 +95,7 @@ class _MyAppBarState extends State<MyAppBar> {
                       shape: const CircleBorder(),
                       padding: const EdgeInsets.all(12),
                     ),
-                    child: const Icon(Icons.search, color: Colors.white),
+                    child: const Icon(Icons.search, color: Colors.white, size: 35),
                   ),
                 ),
               ],
