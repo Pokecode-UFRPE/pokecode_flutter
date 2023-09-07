@@ -8,15 +8,15 @@ class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   final ValueChanged<String> onInputChanged;
   final ValueChanged<List> onPopupChanged;
 
-  MyAppBar(
-      {required this.currentIndex,
-      required this.valorInput,
-      required this.onInputChanged,
-      required this.onPopupChanged,
-      required this.filtroEValorAppBar});
+  MyAppBar({
+    required this.currentIndex,
+    required this.valorInput,
+    required this.onInputChanged,
+    required this.onPopupChanged,
+    required this.filtroEValorAppBar,
+  });
 
   @override
-  // ignore: library_private_types_in_public_api
   _MyAppBarState createState() => _MyAppBarState();
 
   @override
@@ -30,7 +30,6 @@ class _MyAppBarState extends State<MyAppBar> {
   void initState() {
     super.initState();
     _controller = TextEditingController(text: widget.valorInput);
-// Copiar os elementos da lista
   }
 
   @override
@@ -53,6 +52,7 @@ class _MyAppBarState extends State<MyAppBar> {
           ),
           Expanded(
             child: Stack(
+              alignment: Alignment.centerRight,
               children: [
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -75,27 +75,45 @@ class _MyAppBarState extends State<MyAppBar> {
                     },
                   ),
                 ),
-                Container(
-                  alignment: Alignment.centerRight,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      final filtroEValorNovo = await showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return const PopupFilter();
-                        },
-                      );
-                      if (filtroEValorNovo != null) {
-                        setState(() {});
-                      }
-                      widget.onPopupChanged(filtroEValorNovo);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      shape: const CircleBorder(),
-                      padding: const EdgeInsets.all(12),
-                    ),
-                    child: const Icon(Icons.search, color: Colors.white, size: 35),
+                Positioned(
+                  right: 0, 
+                  child: Row(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          //color: Colors.blue,
+                        ),
+                        child: IconButton(
+                          onPressed: () async {
+                            final filtroEValorNovo = await showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return const PopupFilter();
+                              },
+                            );
+                            if (filtroEValorNovo != null) {
+                              setState(() {});
+                            }
+                            widget.onPopupChanged(filtroEValorNovo);
+                          },
+                          icon: Icon(Icons.filter_list, color: Colors.black, size: 30),
+                        ),
+                      ),
+                      SizedBox(width: 0), // Ajusta o espaçamento entre os botões
+                      Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.black,
+                        ),
+                        child: IconButton(
+                          onPressed: () {
+                            // Adicione aqui a ação do botão de pesquisa
+                          },
+                          icon: Icon(Icons.search, color: Colors.white, size: 30),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -107,6 +125,7 @@ class _MyAppBarState extends State<MyAppBar> {
     );
   }
 }
+
 
 class ProfileButton extends StatelessWidget {
   const ProfileButton({Key? key}) : super(key: key);
