@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pokecode/models/PokemonCapture.dart';
 import 'package:pokecode/repository/PokemonUserRepository.dart';
 import 'package:pokecode/widgets/pokemon_type_badge.dart';
-
+import 'package:pokecode/widgets/renomear_pokemon.dart';
 import '../models/Pokemon.dart';
 
 class PopupPokemonSelected extends StatefulWidget {
