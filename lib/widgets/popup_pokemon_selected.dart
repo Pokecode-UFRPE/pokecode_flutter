@@ -145,6 +145,49 @@ class _PopupPokemonSelectedState extends State<PopupPokemonSelected> {
                     ],
                   ),
                 ),
+                ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Alterar Nome do Pokémon',
+                              style: TextStyle(fontFamily: 'PressStart2P')),
+                          content: renomear_pokemon(
+                            currentName: widget.pokemonz.name,
+                            onNameChanged: (newName) {
+                              setState(() {
+                                widget.pokemonz.name = newName;
+                              });
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                  ),
+                  child: Container(
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 12),
+                    width: 100,
+                    alignment: Alignment.center,
+                    child: const Text(
+                      'Alterar Nome',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 8,
+                        fontFamily: 'PressStart2P',
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
                 PokeballTools(pokemonCapture: widget.pokemonCapture),
                 SizedBox(
                   height: 20,
