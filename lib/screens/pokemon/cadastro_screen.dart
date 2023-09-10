@@ -151,20 +151,20 @@ class _CadastroScreen extends State<CadastroScreen> {
                   child: Center(
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 10),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          shadowColor: Colors.blueGrey),
+                        padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        shadowColor: Color.fromARGB(255, 81, 113, 253),
+                        backgroundColor: Color.fromARGB(255, 81, 113, 253), // Defina a cor de fundo aqui
+                      ),
                       onPressed: () {
                         if (_formKey.currentState?.validate() ?? false) {
                           _cadastrar();
-                          // Navigator.pushReplacementNamed(context, '/');
                         }
                       },
                       child: const Text('CADASTRO',
-                          style: TextStyle(fontSize: 20, fontFamily: 'PS2')),
+                          style: TextStyle(fontSize: 20, fontFamily: 'PS2', color: Colors.white)),
                     ),
                   ),
                 ),
@@ -181,8 +181,8 @@ class _CadastroScreen extends State<CadastroScreen> {
                             onPressed: () => Navigator.pushReplacementNamed(
                                 context, '/login'),
                             child: const Text(
-                              "Clique aqui",
-                              style: TextStyle(color: Colors.deepOrange),
+                              "Clique aqui.",
+                              style: TextStyle(color: Color.fromARGB(255, 245, 85, 85)),
                             ))
                       ],
                     ))

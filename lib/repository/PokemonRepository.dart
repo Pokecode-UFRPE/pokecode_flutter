@@ -1,85 +1,129 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 
-import '../models/PokemonModel.dart';
+import '../models/Pokemon.dart';
 
 class PokemonRepository {
-  Future<PokemonModel> adicionarPokemon(PokemonModel pokemon) async {
-    String userId = FirebaseAuth.instance.currentUser!.uid;
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userId)
-        .collection('bag')
-        .doc(pokemon.id)
-        .set(pokemon.toMap());
 
-    return pokemon;
-  }
-
-  Future<PokemonModel?> findById(String pokemonId) async {
-    String userId = FirebaseAuth.instance.currentUser!.uid;
-    DocumentSnapshot docSnapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userId)
-        .collection('bag')
-        .doc(pokemonId)
-        .get();
-
-    if (docSnapshot.exists) {
-      Map<String, dynamic> data = docSnapshot.data() as Map<String, dynamic>;
-      List<String> types = (data['types'] as List<dynamic>).cast<String>();
-      return PokemonModel(
-        id: data['id'],
-        types: types,
-        name: data['name'],
-        image: data['image'],
-        favorito: data['favorito'],
-        capturado: data['capturado'],
-      );
-    } else {
-      return null;
+  Future<Pokemon?> getPokemon(int index) async {
+    final ref = FirebaseDatabase.instance.ref();
+    final DataSnapshot snapshot = await ref.child('/pokemon/$index').get();
+    if (snapshot.exists) {
+      try {
+        Map<dynamic, dynamic> map = snapshot.value as Map<dynamic, dynamic>;
+        Map<String, dynamic>? json = map.cast<String, dynamic>();
+        Pokemon result = Pokemon.fromJson(json);
+        return result;
+      } catch (e) {
+        print(e);
+      }
     }
+    return null;
   }
 
-  Future<void> updatePokemon(PokemonModel pokemon) async {
-    String userId = FirebaseAuth.instance.currentUser!.uid;
+  Future<List<String>?> getTypes() async {
+    final ref = FirebaseDatabase.instance.ref();
+    final DataSnapshot snapshot = await ref.child('/typing/').get();
 
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userId)
-        .collection('bag')
-        .doc(pokemon.id.toString())
-        .update(pokemon.toMap())
-        .catchError(
-          (error) => throw Exception("Erro ao atualizar Pokémon: $error"),
-        );
-  }
-
-  Future<List<PokemonModel>> findByCapturados() async {
-    String userId = FirebaseAuth.instance.currentUser!.uid;
-
-    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userId)
-        .collection('bag')
-        .where('capturado', isEqualTo: true)
-        .get();
-
-    List<PokemonModel> capturados = [];
-    for (QueryDocumentSnapshot docSnapshot in querySnapshot.docs) {
-      Map<String, dynamic> data = docSnapshot.data() as Map<String, dynamic>;
-      List<String> types = (data['types'] as List<dynamic>).cast<String>();
-      capturados.add(
-        PokemonModel(
-          id: data['id'],
-          types: types,
-          name: data['name'],
-          image: data['image'],
-          favorito: data['favorito'],
-          capturado: data['capturado'],
-        ),
-      );
+    if (snapshot.exists) {
+      try {
+        List<dynamic> dataList = snapshot.value as List<dynamic>;
+        List<String> result = dataList.map((item) => item.toString()).toList();
+        return result;
+      } catch (e) {
+        print(e);
+      }
     }
-    return capturados;
+    return null;
+  }
+
+  Future<List<String>?> getColors() async {
+    final ref = FirebaseDatabase.instance.ref();
+    final DataSnapshot snapshot = await ref.child('/primary_color/').get();
+
+    if (snapshot.exists) {
+      try {
+        List<dynamic> dataList = snapshot.value as List<dynamic>;
+        List<String> result = dataList.map((item) => item.toString()).toList();
+        // print(result);
+        return result;
+      } catch (e) {
+        print(e);
+      }
+    }
+    return null;
+  }
+
+  Future<List<String>?> getShapes() async {
+    final ref = FirebaseDatabase.instance.ref();
+    final DataSnapshot snapshot = await ref.child('/shape/').get();
+
+    if (snapshot.exists) {
+      try {
+        List<dynamic> dataList = snapshot.value as List<dynamic>;
+        List<String> result = dataList.map((item) => item.toString()).toList();
+        return result;
+      } catch (e) {
+        print(e);
+      }
+    }
+    return null;
+  }
+
+  Future<List<Pokemon>> getPokemonsInput(String name) async {
+    final ref = FirebaseDatabase.instance.ref().child('pokemon');
+    Query query = ref.orderByChild('name').startAt(name).endAt("$name\uf8ff");
+    DataSnapshot snapshot = (await query.once()).snapshot;
+    List<Pokemon> resultList = [];
+
+    if (snapshot.exists) {
+      try {
+        Map<dynamic, dynamic> map = snapshot.value as Map<dynamic, dynamic>;
+        Map<String, dynamic>? json = map.cast<String, dynamic>();
+        // print(map);
+        print(json);
+        if (json != null) {
+          if (map is Map) {
+            map.forEach((key, value) {
+              if (value is Map<String, dynamic>) {
+                Pokemon result = Pokemon.fromJson(value);
+                resultList.add(result);
+              }
+            });
+          }
+        }
+      } catch (error) {
+        print("Error: $error");
+      }
+    }
+    return resultList;
+  }
+
+  Future<List<Pokemon>> getPokemonsFiltroString(String aux,
+      String tipoDeBusca) async {
+    final ref = FirebaseDatabase.instance.ref().child('pokemon');
+    Query query =
+    ref.orderByChild(tipoDeBusca).startAt(aux).endAt(aux + "\uf8ff");
+    DataSnapshot snapshot = (await query.once()).snapshot;
+    List<Pokemon> resultList = [];
+
+    if (snapshot.exists) {
+      try {
+        Map<dynamic, dynamic> map = snapshot.value as Map<dynamic, dynamic>;
+        Map<String, dynamic>? json = map.cast<String, dynamic>();
+        if (json != null) {
+          if (map is Map) {
+            map.forEach((key, value) {
+              if (value is Map<String, dynamic>) {
+                Pokemon result = Pokemon.fromJson(value);
+                resultList.add(result);
+              }
+            });
+          }
+        }
+      } catch (error) {
+        print("Error: $error");
+      }
+    }
+    return resultList;
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pokecode/repository/PokemonRepository.dart';
 import 'package:pokecode/widgets/pokemon_type_badge.dart';
-import '../services/db_firestore.dart';
 
 class ExpanderFilters extends StatefulWidget {
   const ExpanderFilters({Key? key}) : super(key: key);
@@ -10,6 +10,7 @@ class ExpanderFilters extends StatefulWidget {
 }
 
 class _ExpanderFiltersState extends State<ExpanderFilters> {
+  final PokemonRepository _pokemonRepository = PokemonRepository();
   bool _tipoExpanded = true;
   bool _geracaoExpanded = false;
   bool _formatoExpanded = false;
@@ -28,9 +29,10 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
   }
 
   Future<void> _loadData() async {
-    List<String>? tipos = await getTypes();
-    List<String>? cores = await getColors();
-    List<String>? shapes = await getShapes();
+    List<String>? tipos = await _pokemonRepository.getTypes();
+    List<String>? cores = await _pokemonRepository.getColors();
+    List<String>? shapes = await _pokemonRepository.getShapes();
+    
     setState(() {
       _tipoIndices = tipos;
       _colorIndices = cores;
@@ -40,14 +42,24 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _buildExpander('Tipo', _tipoExpanded, _buildTipoContent()),
-        _buildExpander('Geração', _geracaoExpanded, _buildGeracaoContent()),
-        _buildExpander('Formato', _formatoExpanded, _buildFormatoContent()),
-        _buildExpander('Cor', _corExpanded, _buildCorContent()),
-        _buildExpander('Raridade', _raridadeExpanded, _buildRaridadeContent()),
-      ],
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context, ['', '']);
+        return true;
+      },
+      child: Column(
+        children: [
+          _buildExpander('Tipo', _tipoExpanded, _buildTypeContent()),
+          _buildExpander('Geração', _geracaoExpanded, _buildGeracaoContent()),
+          _buildExpander('Formato', _formatoExpanded, _buildFormatoContent()),
+          _buildExpander('Cor', _corExpanded, _buildCorContent()),
+          _buildExpander(
+              'Raridade', _raridadeExpanded, _buildRaridadeContent()),
+          const SizedBox(
+            height: 81,
+          )
+        ],
+      ),
     );
   }
 
@@ -100,7 +112,7 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
     );
   }
 
-  Widget _buildTipoContent() {
+  Widget _buildTypeContent() {
     if (_tipoIndices == null) {
       return const Center(
         child: CircularProgressIndicator(),
@@ -111,9 +123,9 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-          childAspectRatio: 4,
+          childAspectRatio: 2.7,
           mainAxisSpacing: 10,
-          crossAxisSpacing: 10),
+          crossAxisSpacing: 8),
       itemCount: _tipoIndices!.length,
       itemBuilder: (context, index) {
         final tipo = _tipoIndices![index];
@@ -149,8 +161,8 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
           child: Container(
             alignment: Alignment.center,
             decoration: const BoxDecoration(
-              color: Color.fromARGB(218, 255, 85, 85), // Cor de fundo
-              shape: BoxShape.circle, // Define a forma como círculo
+              color: Color.fromARGB(218, 255, 85, 85),
+              shape: BoxShape.circle,
             ),
             child: Text(
               '$geracaoª',
@@ -176,7 +188,7 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
     return GridView.builder(
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 7,
+        crossAxisCount: 4,
         childAspectRatio: 0.8,
         // mainAxisSpacing: 10,
         crossAxisSpacing: 10,
@@ -196,7 +208,7 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
                   Text(
                     shape.toString(),
                     style: const TextStyle(
-                      fontSize: 8.0,
+                      fontSize: 9.0,
                       fontWeight: FontWeight.bold,
                       fontStyle: FontStyle.italic,
                       color: Color.fromARGB(255, 80, 77, 77),
@@ -248,9 +260,6 @@ class _ExpanderFiltersState extends State<ExpanderFilters> {
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        childAspectRatio: 2,
-        mainAxisSpacing: 10,
-        crossAxisSpacing: 10,
       ),
       itemCount: 3,
       itemBuilder: (context, index) {

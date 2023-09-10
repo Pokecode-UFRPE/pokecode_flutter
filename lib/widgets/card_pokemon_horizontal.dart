@@ -1,41 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:pokecode/models/PokemonCapture.dart';
+import 'package:pokecode/useCases/PokemonCaptureUseCase.dart';
 import 'package:pokecode/widgets/pokemon_type_badge.dart';
 import 'package:pokecode/widgets/popup_pokemon_selected.dart';
 
-import '../services/db_firestore.dart';
+import '../models/Pokemon.dart';
 
-class CardPokemonHorizontalWidget extends StatelessWidget {
+class CardPokemonHorizontalWidget extends StatefulWidget {
   final int currentIndex;
   final Pokemon? pokemon;
 
-  CardPokemonHorizontalWidget({
+  const CardPokemonHorizontalWidget({
     Key? key,
     required this.currentIndex,
     required this.pokemon,
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    String link = '';
-    // Remover depois
-    if (pokemon!.name.contains('Gmax') || pokemon!.name.contains('Mega')) {
-      return SizedBox.shrink();
-    }
-    if (pokemon!.pokedex_number < 10) {
-      link =
-          'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/00${pokemon!.pokedex_number}.png';
-    } else if (pokemon!.pokedex_number < 100) {
-      link =
-          'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/0${pokemon!.pokedex_number}.png';
-    } else {
-      link =
-          'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${pokemon!.pokedex_number}.png';
-    }
-    List<String> tipos = pokemon!.typing.split("~");
+  _CardPokemonHorizontalWidgetState createState() =>
+      _CardPokemonHorizontalWidgetState();
+}
 
+class _CardPokemonHorizontalWidgetState
+    extends State<CardPokemonHorizontalWidget> {
+  PokemonCapture _pokemonCapture =
+      PokemonCapture(id: "1", gosta: 0, capturado: false, favorito: false);
+  String link = "";
+  String? _pokeball;
+  List<String> tipos = [];
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      PokemonCaptureUseCase()
+          .getPokemon(widget.pokemon!.pokedexNumber.toString())
+          .then((value) => _pokemonCapture = value);
+      _pokeball =
+          _pokemonCapture.capturado ? 'assets/icons/icon-pokeball.png' : "";
+      link =
+          'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${widget.pokemon!.pokedexNumber.toString().padLeft(3, '0')}.png';
+      tipos = widget.pokemon!.typing.split("~");
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Center(
       child: Padding(
-        padding: const EdgeInsetsDirectional.symmetric(horizontal: 10),
+        padding: EdgeInsetsDirectional.symmetric(horizontal: 10),
         child: Card(
           color: Colors.white,
           elevation: 4.0,
@@ -57,7 +70,7 @@ class CardPokemonHorizontalWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '#${pokemon!.pokedex_number.toString().padLeft(4, '0')}',
+                            '#${widget.pokemon!.pokedexNumber.toString().padLeft(4, '0')}',
                             style: TextStyle(
                               fontSize: 14,
                               color: Colors.grey.shade500,
@@ -66,7 +79,7 @@ class CardPokemonHorizontalWidget extends StatelessWidget {
                           ),
                           const SizedBox(height: 5),
                           Text(
-                            pokemon!.name,
+                            widget.pokemon!.name,
                             style: const TextStyle(
                               fontSize: 14,
                               color: Colors.black,
@@ -105,10 +118,9 @@ class CardPokemonHorizontalWidget extends StatelessWidget {
                 context: context,
                 builder: (BuildContext context) {
                   return PopupPokemonSelected(
-                    name: pokemon!.name,
-                    number_pokedex: pokemon!.pokedex_number,
                     types: tipos,
-                    capturado: false,
+                    pokemonz: widget.pokemon!,
+                    pokemonCapture: _pokemonCapture,
                     link: link,
                   );
                 },
