@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart'; 
+import 'package:pokecode/models/equipe.dart';
 
 import '../../models/Pokemon.dart';
 import '../../models/PokemonCapture.dart';
@@ -7,6 +9,7 @@ import '../../repository/PokemonUserRepository.dart';
 import '../../widgets/app_bar_widget.dart';
 import '../../widgets/bottom_navigation_bar_widget.dart';
 import '../../widgets/card_pokemon_bag_widget.dart';
+import 'package:pokecode/screens/pokemon/lista_equipes.dart';
 
 class BagScreen extends StatefulWidget {
   @override
@@ -19,6 +22,7 @@ class _BagScreenState extends State<BagScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: MyAppBar(
         currentIndex: 0,
@@ -36,13 +40,48 @@ class _BagScreenState extends State<BagScreen> {
         },
       ),
       body: Container(
-        child: pokemonsCapturados(),
+        child: Column(
+          children: [
+            Card(
+              elevation: 2.0,
+              margin: EdgeInsets.all(24.0),
+              child: ListTile(
+                title: Text(
+                  'Gerencie suas equipes',
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+                trailing: Icon(
+                  Icons.arrow_forward,
+                  color: Colors.black,
+                ),
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChangeNotifierProvider(
+                        builder: (context, child) => ListaEquipes(), create: (BuildContext context) {  },
+                      )
+                    ),
+                  );
+                },
+              ),
+            ),
+            Expanded(
+              child: pokemonsCapturados(),
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: BottomNavigationBarWidget(
         currentIndex: 0,
       ),
     );
   }
+
 
   Widget pokemonsCapturados() {
     PokemonRepository _pokemonRepository = PokemonRepository();

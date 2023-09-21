@@ -19,8 +19,7 @@ class CardPokemonBagWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<PokemonCapture>(
-      future:
-          PokemonCaptureUseCase().getPokemon(pokemon!.pokedexNumber.toString()),
+      future: PokemonCaptureUseCase().getPokemon(pokemon!.pokedexNumber.toString()),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
@@ -28,10 +27,8 @@ class CardPokemonBagWidget extends StatelessWidget {
           return Text('Erro: ${snapshot.error}');
         } else {
           final pokemonCapture = snapshot.data;
-
-          String link =
-              'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${pokemon!.pokedexNumber.toString().padLeft(3, '0')}.png';
-          List<String> tipos = pokemon!.typing.split("~");
+          final link = 'https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${pokemon!.pokedexNumber.toString().padLeft(3, '0')}.png';
+          final tipos = pokemon!.typing.split("~");
 
           return Center(
             child: SizedBox(
@@ -45,81 +42,6 @@ class CardPokemonBagWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(13),
                 ),
                 child: InkWell(
-                  child: Stack(
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 1,
-                        height: MediaQuery.of(context).size.width / 3.5,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Column(
-                            children: [
-                              Row(children: [
-                                Text(
-                                  '#${pokemon!.pokedexNumber.toString().padLeft(4, '0')}',
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.grey.shade500,
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                              ]),
-                              SizedBox(height: 3),
-                              Row(children: [
-                                Text(
-                                  pokemon!.name,
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w700,
-                                    fontFamily: 'PressStart2P',
-                                  ),
-                                ),
-                              ]),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              CircleAvatar(
-                                backgroundColor: Colors.white,
-                                foregroundColor:
-                                    const Color.fromARGB(255, 255, 191, 0),
-                                radius: MediaQuery.of(context).size.width / 6.2, // Reduz o tamanho do CircleAvatar
-                                child: ClipOval(
-                                  child: Image.network(
-                                    link,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: tipos.map((type) {
-                                  return PokemonTypeBadge(type: type);
-                                }).toList(),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        top: 0,
-                        right: 0,
-                        child: CircleAvatar(
-                          radius: 16,
-                          backgroundColor: Colors.black,
-                          child: Icon(
-                            Icons.edit,
-                            color: Colors.white,
-                            size: 20,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                   onTap: () {
                     showDialog(
                       context: context,
@@ -139,6 +61,64 @@ class CardPokemonBagWidget extends StatelessWidget {
                       },
                     );
                   },
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width / 1,
+                    height: MediaQuery.of(context).size.width / 3.5,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Column(
+                        children: [
+                          Row(children: [
+                            Text(
+                              '#${pokemon!.pokedexNumber.toString().padLeft(4, '0')}',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.grey.shade500,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ]),
+                          SizedBox(height: 3),
+                          Row(children: [
+                            Text(
+                              pokemon!.name,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'PressStart2P',
+                              ),
+                            ),
+                          ]),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          CircleAvatar(
+                            backgroundColor: Colors.white,
+                            foregroundColor:
+                                const Color.fromARGB(255, 255, 191, 0),
+                            radius: MediaQuery.of(context).size.width / 6,
+                            child: ClipOval(
+                              child: Image.network(
+                                link,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: tipos.map((type) {
+                              return PokemonTypeBadge(type: type);
+                            }).toList(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),

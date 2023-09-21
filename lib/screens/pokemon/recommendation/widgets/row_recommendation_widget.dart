@@ -33,7 +33,7 @@ class _RowRecommendationWidgetState extends State<RowRecommendationWidget> {
 
   Future<List<int>> getSimilars() async {
     final int index = await getPokemonIndex();
-    final url = Uri.parse('http://192.168.0.109:3001/$index?quantity=30');
+    final url = Uri.parse('http://192.168.15.5:3001/$index?quantity=30');
     final httpResponse = await http.get(url);
     var body = json.decode(httpResponse.body).cast<int>();
     print("${body[0]} é parecido com os outros ${body}");
