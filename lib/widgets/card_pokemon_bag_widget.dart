@@ -115,6 +115,7 @@ class CardPokemonBagWidget extends StatelessWidget {
                               PokemonCapture(
                                 id: pokemon!.pokedexNumber.toString(),
                                 gosta: 0,
+                                pokecenter: pokemonCapture!.pokecenter,
                                 capturado: false,
                                 favorito: false,
                               ),

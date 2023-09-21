@@ -23,8 +23,8 @@ class CardPokemonHorizontalWidget extends StatefulWidget {
 
 class _CardPokemonHorizontalWidgetState
     extends State<CardPokemonHorizontalWidget> {
-  PokemonCapture _pokemonCapture =
-      PokemonCapture(id: "1", gosta: 0, capturado: false, favorito: false);
+  PokemonCapture _pokemonCapture = PokemonCapture(
+      id: "1", gosta: 0, pokecenter: false, capturado: false, favorito: false);
   String link = "";
   String? _pokeball;
   List<String> tipos = [];

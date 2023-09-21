@@ -29,6 +29,7 @@ class PokemonUserRepository {
       return PokemonCapture(
           id: data['id'],
           gosta: data['gosta'],
+          pokecenter: data['pokecenter'],
           favorito: data['favorito'],
           capturado: data['capturado']);
     } else {
@@ -52,6 +53,7 @@ class PokemonUserRepository {
       Map<String, dynamic> data = docSnapshot.data() as Map<String, dynamic>;
       capturedPokemons.add(PokemonCapture(
         id: data['id'],
+        pokecenter: data['pokecenter'],
         gosta: data['gosta'],
         favorito: data['favorito'],
         capturado: data['capturado'],
@@ -75,6 +77,7 @@ class PokemonUserRepository {
         Map<String, dynamic> data = docSnapshot.data() as Map<String, dynamic>;
         capturedPokemons.add(PokemonCapture(
           id: data['id'],
+          pokecenter: data['pokecenter'],
           gosta: data['gosta'],
           favorito: data['favorito'],
           capturado: data['capturado'],

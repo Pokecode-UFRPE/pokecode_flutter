@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:pokecode/models/PokemonCapture.dart';
 import 'package:pokecode/repository/PokemonUserRepository.dart';
 import 'package:pokecode/widgets/pokemon_type_badge.dart';
+import 'package:pokecode/widgets/renomear_pokemon.dart';
 
 import '../models/Pokemon.dart';
+import '../repository/PokecenterRepository.dart';
 
 class PopupPokemonSelected extends StatefulWidget {
   final List<String> types;
@@ -467,6 +469,7 @@ class PokeballTools extends StatefulWidget {
 
 class _PokeballToolsState extends State<PokeballTools> {
   final PokemonUserRepository _pokemonRepository = PokemonUserRepository();
+  final PokecenterRepository _pokecenterRepository = PokecenterRepository();
 
   // Funções que representam as ações que podem ser selecionadas
   void favoritar() {
@@ -495,6 +498,18 @@ class _PokeballToolsState extends State<PokeballTools> {
         widget.pokemonCapture.gosta = 3;
       }
       _pokemonRepository.updatePokemon(widget.pokemonCapture);
+    });
+  }
+
+  void pokecenter() {
+    setState(() {
+      if (widget.pokemonCapture.pokecenter) {
+        _pokecenterRepository.remove(widget.pokemonCapture.id);
+        widget.pokemonCapture.pokecenter = false;
+      } else {
+        _pokecenterRepository.addPokemon(widget.pokemonCapture);
+        widget.pokemonCapture.pokecenter = true;
+      }
     });
   }
 
@@ -550,6 +565,16 @@ class _PokeballToolsState extends State<PokeballTools> {
                   widget.pokemonCapture.gosta == 3
                       ? Icons.thumb_down_alt_rounded
                       : Icons.thumb_down_alt_outlined,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  pokecenter();
+                },
+                child: Icon(
+                  widget.pokemonCapture.pokecenter
+                      ? Icons.health_and_safety
+                      : Icons.health_and_safety_outlined,
                 ),
               )
             ],

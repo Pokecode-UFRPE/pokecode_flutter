@@ -11,7 +11,11 @@ class PokemonCaptureUseCase {
       return value;
     } else {
       return PokemonCapture(
-          id: pokemonId, gosta: 0, capturado: false, favorito: false);
+          id: pokemonId,
+          gosta: 0,
+          pokecenter: false,
+          capturado: false,
+          favorito: false);
     }
   }
 }
